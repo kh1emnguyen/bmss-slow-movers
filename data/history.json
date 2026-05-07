@@ -1,6 +1,732 @@
 {
   "snapshots": [
     {
+      "date": "2026-04-25",
+      "items": {
+        "19 Crimes Malbec 750ml": {
+          "stock": 6,
+          "price": 14.99,
+          "promo": 12.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "19 Crimes The Uprising Red Blend 750ml": {
+          "stock": 7,
+          "price": 14.99,
+          "promo": 12.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Altos Tequila 700ml": {
+          "stock": 3,
+          "price": 67.99,
+          "promo": 63.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Batch & Co Brighton Spritz - Pear Fig & Pinot Grigio 250mL": {
+          "stock": 6,
+          "price": 5.99,
+          "promo": 2.59,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Beenleigh Hard Orange 375ml": {
+          "stock": 3,
+          "price": 5.99,
+          "promo": null,
+          "implemented": false,
+          "units_sold": 1
+        },
+        "Berri Estate Rose Cask 5L": {
+          "stock": 3,
+          "price": 24.99,
+          "promo": 21.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Better Beer Middy 3.5% 375ml": {
+          "stock": 30,
+          "price": 2.99,
+          "promo": 2.59,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Billsons Grape Bubblegum 355ml": {
+          "stock": 1,
+          "price": 6.99,
+          "promo": null,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Blackmans Arthur Smoked Porter 375ml": {
+          "stock": 2,
+          "price": 6.99,
+          "promo": 7.09,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Brick Lane Wild Sky No Carb Pale Ale 355ml": {
+          "stock": 21,
+          "price": 3.99,
+          "promo": 3.09,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Brookvale Union Vodka LLB 330ml": {
+          "stock": 6,
+          "price": 5.99,
+          "promo": 5.49,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Brown Brothers Passionfruit Spritz 750ml": {
+          "stock": 1,
+          "price": 17.99,
+          "promo": 14.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Brown Brothers Prosecco 750ml": {
+          "stock": 9,
+          "price": 19.99,
+          "promo": 17.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Brown Brothers Prosecco Spritz 750ml": {
+          "stock": 4,
+          "price": 17.99,
+          "promo": 15.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Brown Brothers Prosecco Spritz Orange 750ml": {
+          "stock": 4,
+          "price": 19.99,
+          "promo": 17.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Brown Brothers Prosecco Yuzu Spritz 750ml": {
+          "stock": 5,
+          "price": 19.99,
+          "promo": 16.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Bumbu Rum 700ml": {
+          "stock": 3,
+          "price": 79.99,
+          "promo": 63.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Bundy Christmas Pudding 700ml": {
+          "stock": 3,
+          "price": 53.99,
+          "promo": 51.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Bundy Up & Zero 4.6% 10pk 375ml": {
+          "stock": 18,
+          "price": 5.99,
+          "promo": 5.09,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Captain Morgan Pina Colada 440ml": {
+          "stock": 22,
+          "price": 7.99,
+          "promo": 7.99,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Chandon Brut NV 750ml": {
+          "stock": 6,
+          "price": 32.99,
+          "promo": 33.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Cruiser Sugar Free Berry Can 275ml": {
+          "stock": 20,
+          "price": 5.99,
+          "promo": 4.79,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Dainton Equalizer Pale Ale 375ml": {
+          "stock": 3,
+          "price": 5.49,
+          "promo": 2.79,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "De Bortoli KV Prosecco Rose 750ml": {
+          "stock": 6,
+          "price": 17.99,
+          "promo": 17.49,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "De Bortoli Pinot Pinot Noir 750ml": {
+          "stock": 2,
+          "price": 16.99,
+          "promo": 13.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "De Bortoli Prem Liqueur Muscat Cask 4L": {
+          "stock": 1,
+          "price": 24.99,
+          "promo": 22.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "De Bortoli Premium Old Tawny 4L": {
+          "stock": 2,
+          "price": 24.99,
+          "promo": 22.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Deep Wood Estate Rose 750ml": {
+          "stock": 1,
+          "price": 24.99,
+          "promo": 27.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Gekkeikan Sake 720ml": {
+          "stock": 1,
+          "price": 31.99,
+          "promo": 28.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Georg Jensen Hallmark Cuvee 750ml 6pk": {
+          "stock": 1,
+          "price": 34.99,
+          "promo": 27.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Glenlivet 12 YR OLD 700ml": {
+          "stock": 2,
+          "price": 89.99,
+          "promo": 72.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Gordons Gin Med Orange 700ml": {
+          "stock": 1,
+          "price": 57.49,
+          "promo": 57.49,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Greasy Fingers Shiraz 750ml": {
+          "stock": 3,
+          "price": 21.99,
+          "promo": 17.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Hakutsuru Junmaiginjo Blue 14% Sake 720ml": {
+          "stock": 5,
+          "price": 34.99,
+          "promo": 27.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Hawkers Brawn IPA 440ml": {
+          "stock": 1,
+          "price": 14.99,
+          "promo": 14.19,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Hawkers Original XPA 440ml": {
+          "stock": 1,
+          "price": 9.99,
+          "promo": 9.59,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Hawkesbury Coasty Pale Ale 375ml": {
+          "stock": 19,
+          "price": 4.99,
+          "promo": 4.99,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Hawkesbury IPA 375ml": {
+          "stock": 11,
+          "price": 6.99,
+          "promo": 5.89,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Hawkesbury Watermelon Spritz 1.25L": {
+          "stock": 22,
+          "price": 14.99,
+          "promo": 16.09,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Heaps Normal Lager 355ml": {
+          "stock": 10,
+          "price": 3.99,
+          "promo": 3.89,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Hellraiser Bourbon and Cola 375ml 8%": {
+          "stock": 20,
+          "price": 7.99,
+          "promo": 6.19,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Hendricks Flora Adora Gin 700ml": {
+          "stock": 2,
+          "price": 79.99,
+          "promo": null,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Hennessy XO Cognac 700ml 6pk": {
+          "stock": 2,
+          "price": 329.99,
+          "promo": 332.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Hop Nation Melbourne Fog Hazy Pale 4.8% Can 375ml 16pk": {
+          "stock": 7,
+          "price": 6.49,
+          "promo": 6.19,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Houghton Cabernet Sauvignon 750ml": {
+          "stock": 4,
+          "price": 9.99,
+          "promo": 11.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Jameson Ultra 10% Lime 250ml": {
+          "stock": 44,
+          "price": 9.49,
+          "promo": 4.39,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Jansz Vintage Cuvee 750ml": {
+          "stock": 2,
+          "price": 54.99,
+          "promo": 54.49,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "KILARNI Cab Sauv 750ML": {
+          "stock": 18,
+          "price": 17.99,
+          "promo": 14.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Kilarni Estate Shiraz 750ml": {
+          "stock": 9,
+          "price": 19.79,
+          "promo": 15.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Kilarni Sauv Blanc 750ml": {
+          "stock": 11,
+          "price": 17.99,
+          "promo": 14.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "La Sirene Blueberry Praline Stout 330ml": {
+          "stock": 5,
+          "price": 9.99,
+          "promo": 9.19,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Lindemans Bin 45 Cabernet Sauvignon 750ml": {
+          "stock": 3,
+          "price": 9.99,
+          "promo": 8.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Lindemans Bin 95 Sauvignon Blanc 750ml": {
+          "stock": 3,
+          "price": 9.99,
+          "promo": 8.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Lindemans Early Harvest Shiraz 750ml": {
+          "stock": 5,
+          "price": 14.99,
+          "promo": 14.99,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Little Yering Shiraz 750ml": {
+          "stock": 4,
+          "price": 22.99,
+          "promo": 20.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Local Pale Ale 375ml": {
+          "stock": 6,
+          "price": 5.49,
+          "promo": 5.09,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Lotte Chum Churum Saero Zero Sugar Soju 360ml": {
+          "stock": 18,
+          "price": 11.99,
+          "promo": 8.89,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Lotte Chum Churum Saero Zero Sugar Soju APRICOT 360ml": {
+          "stock": 17,
+          "price": 11.99,
+          "promo": 8.89,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Mango Shotta Tequila 50ml": {
+          "stock": 9,
+          "price": 6.99,
+          "promo": 5.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Martell Cognac 3 Star VS 700ml": {
+          "stock": 2,
+          "price": 79.99,
+          "promo": 73.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Matsos ALC Ginger Beer Can 330ml": {
+          "stock": 8,
+          "price": 5.49,
+          "promo": 5.09,
+          "implemented": true,
+          "units_sold": 48
+        },
+        "Mud House Core Rose 750ml": {
+          "stock": 3,
+          "price": 19.99,
+          "promo": 16.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Muhak Good Day Mint Choco 360ml": {
+          "stock": 28,
+          "price": 9.99,
+          "promo": 7.79,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "One Active Recovery 500ml": {
+          "stock": 24,
+          "price": 4.49,
+          "promo": 4.59,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Open Door Shiraz 1L": {
+          "stock": 5,
+          "price": 9.99,
+          "promo": null,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Pals Pineapple, Lime and Soda": {
+          "stock": 4,
+          "price": 6.99,
+          "promo": null,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Penfolds B2 2012 Shiraz Mourvedre 750ml": {
+          "stock": 73,
+          "price": 43.99,
+          "promo": 34.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "PENFOLDS B311 CHARDONNAY 2017 750ml": {
+          "stock": 1,
+          "price": 49.99,
+          "promo": 56.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Penfolds Club Port 750ml": {
+          "stock": 6,
+          "price": 14.99,
+          "promo": 14.49,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Penfolds Maxs Pinot Noir 750ml": {
+          "stock": 3,
+          "price": 29.99,
+          "promo": 28.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Pepperjack Graded Langhorne Creek Shiraz 750ml": {
+          "stock": 6,
+          "price": 36.99,
+          "promo": 34.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Pepperjack PINOT NOIR 750ML": {
+          "stock": 4,
+          "price": 24.99,
+          "promo": 21.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Pepperjack Sparkling 750ml": {
+          "stock": 1,
+          "price": 24.99,
+          "promo": 23.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Proper No12 Irish Whiskey 700ml": {
+          "stock": 8,
+          "price": 69.99,
+          "promo": 62.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "R/MONDAVI BOURB CAB SAUV 750ML": {
+          "stock": 5,
+          "price": 22.99,
+          "promo": 21.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Red Hill Chardonnay 750ml": {
+          "stock": 4,
+          "price": 19.99,
+          "promo": null,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Remy Martin XO 700ml": {
+          "stock": 2,
+          "price": 319.99,
+          "promo": 319.99,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Sierra Tequila Tropical Chilli 700ml": {
+          "stock": 1,
+          "price": 41.99,
+          "promo": 38.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Singha Beer Can 330ml 24pk": {
+          "stock": 20,
+          "price": 4.29,
+          "promo": 3.59,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Smirnoff Crush 10pk 440ml Cans": {
+          "stock": 10,
+          "price": null,
+          "promo": 7.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Soho Lychee Flavoured Spirit 700ml": {
+          "stock": 1,
+          "price": 37.99,
+          "promo": 34.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Sour Puss Guava 700ml": {
+          "stock": 5,
+          "price": 29.99,
+          "promo": null,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Sour Puss Watermelon Liqueur 700ml": {
+          "stock": 4,
+          "price": 29.99,
+          "promo": 26.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Spring Rock Crisp Dry White 4L": {
+          "stock": 3,
+          "price": 13.99,
+          "promo": 13.49,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Squealing Pig Pinot Gris 750ml": {
+          "stock": 6,
+          "price": 19.99,
+          "promo": 16.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "St Hubert The Stag Shiraz 750ml": {
+          "stock": 4,
+          "price": 19.99,
+          "promo": 15.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "St Hugo Barossa Shiraz 750ml": {
+          "stock": 5,
+          "price": 47.99,
+          "promo": 44.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Starward Nova Wine Barrel Whisky 700ml": {
+          "stock": 2,
+          "price": 89.99,
+          "promo": 90.49,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Stomping Ground Gipps St Pale Ale Can 355ml 24pk": {
+          "stock": 18,
+          "price": 4.99,
+          "promo": 4.39,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Stoneleigh Marlborough Pinot Gris 750ml": {
+          "stock": 5,
+          "price": 17.99,
+          "promo": 14.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Stoneleigh Marlborough Pinot Noir Rose 750ml": {
+          "stock": 6,
+          "price": 17.99,
+          "promo": 16.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Suntory Jim Beam Highball Apple 5% 350ml": {
+          "stock": 2,
+          "price": 7.49,
+          "promo": 6.99,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Ta Ku Pink Sauvignon Blanc 750ml": {
+          "stock": 3,
+          "price": 16.99,
+          "promo": 15.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Tatachilla Moscato 750ml": {
+          "stock": 5,
+          "price": 9.99,
+          "promo": null,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Tooheys Extra Dry Can 375ml": {
+          "stock": 29,
+          "price": 3.49,
+          "promo": 2.69,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Tread Softly Shiraz 750ml": {
+          "stock": 3,
+          "price": 13.99,
+          "promo": 12.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "WHITLEY NEILL Blood Orange Gin 700ML": {
+          "stock": 1,
+          "price": 64.99,
+          "promo": 65.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Wild Boar Spiced Rum & Cola 375ml": {
+          "stock": 20,
+          "price": 15.99,
+          "promo": 15.59,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Wild Turkey 101 Proof Bourbon 700ml": {
+          "stock": 5,
+          "price": 74.99,
+          "promo": 74.99,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Wild Turkey 81 Proof Bourbon 1L": {
+          "stock": 7,
+          "price": 77.99,
+          "promo": 70.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "WIRRA WIRRA MVCG CAB SAU 750ML": {
+          "stock": 3,
+          "price": 21.99,
+          "promo": 20.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Yalumba Bush Grenache": {
+          "stock": 3,
+          "price": 19.99,
+          "promo": null,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Yellowglen Colours Red Sparkling 750ml": {
+          "stock": 4,
+          "price": 11.99,
+          "promo": 10.49,
+          "implemented": false,
+          "units_sold": 0
+        }
+      }
+    },
+    {
       "date": "2026-05-02",
       "items": {
         "19 Crimes Malbec 750ml": {
@@ -8,721 +734,1447 @@
           "price": 14.99,
           "promo": 12.49,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "19 Crimes The Uprising Red Blend 750ml": {
           "stock": 7,
           "price": 14.99,
           "promo": 12.49,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Altos Tequila 700ml": {
           "stock": 3,
           "price": 67.99,
           "promo": 63.99,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Batch & Co Brighton Spritz - Pear Fig & Pinot Grigio 250mL": {
           "stock": 6,
           "price": 5.99,
           "promo": 2.59,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Beenleigh Hard Orange 375ml": {
           "stock": 4,
           "price": 5.99,
           "promo": null,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Berri Estate Rose Cask 5L": {
           "stock": 3,
           "price": 24.99,
           "promo": 21.99,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Better Beer Middy 3.5% 375ml": {
           "stock": 28,
           "price": 2.99,
           "promo": 2.59,
           "implemented": true,
-          "units_sold": null
+          "units_sold": 2
         },
         "Billsons Grape Bubblegum 355ml": {
           "stock": 1,
           "price": 6.99,
           "promo": null,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Blackmans Arthur Smoked Porter 375ml": {
           "stock": 2,
           "price": 6.99,
           "promo": 7.09,
           "implemented": true,
-          "units_sold": null
+          "units_sold": 0
         },
         "Brick Lane Wild Sky No Carb Pale Ale 355ml": {
           "stock": 21,
           "price": 3.99,
           "promo": 3.09,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Brookvale Union Vodka LLB 330ml": {
           "stock": 0,
           "price": 5.99,
           "promo": 5.49,
           "implemented": true,
-          "units_sold": null
+          "units_sold": 6
         },
         "Brown Brothers Passionfruit Spritz 750ml": {
           "stock": 1,
           "price": 17.99,
           "promo": 14.49,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Brown Brothers Prosecco 750ml": {
           "stock": 9,
           "price": 19.99,
           "promo": 17.49,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Brown Brothers Prosecco Spritz 750ml": {
           "stock": 4,
           "price": 17.99,
           "promo": 15.49,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Brown Brothers Prosecco Spritz Orange 750ml": {
           "stock": 4,
           "price": 19.99,
           "promo": 17.49,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Brown Brothers Prosecco Yuzu Spritz 750ml": {
           "stock": 5,
           "price": 19.99,
           "promo": 16.49,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Bumbu Rum 700ml": {
           "stock": 3,
           "price": 64.99,
           "promo": 63.99,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Bundy Christmas Pudding 700ml": {
           "stock": 3,
           "price": 53.99,
           "promo": 51.99,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Bundy Up & Zero 4.6% 10pk 375ml": {
           "stock": 15,
           "price": 5.99,
           "promo": 5.09,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 3
         },
         "Captain Morgan Pina Colada 440ml": {
           "stock": 21,
           "price": 7.99,
           "promo": 7.99,
           "implemented": true,
-          "units_sold": null
+          "units_sold": 1
         },
         "Chandon Brut NV 750ml": {
           "stock": 6,
           "price": 32.99,
           "promo": 33.99,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Cruiser Sugar Free Berry Can 275ml": {
           "stock": 20,
           "price": 5.99,
           "promo": 4.79,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Dainton Equalizer Pale Ale 375ml": {
           "stock": 3,
           "price": 5.49,
           "promo": 2.79,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "De Bortoli KV Prosecco Rose 750ml": {
           "stock": 6,
           "price": 17.99,
           "promo": 17.49,
           "implemented": true,
-          "units_sold": null
+          "units_sold": 0
         },
         "De Bortoli Pinot Pinot Noir 750ml": {
           "stock": 1,
           "price": 16.99,
           "promo": 13.49,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 1
         },
         "De Bortoli Prem Liqueur Muscat Cask 4L": {
           "stock": 1,
           "price": 24.99,
           "promo": 22.99,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "De Bortoli Premium Old Tawny 4L": {
           "stock": 2,
           "price": 24.99,
           "promo": 22.99,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Deep Wood Estate Rose 750ml": {
           "stock": 1,
           "price": 24.99,
           "promo": 27.49,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Gekkeikan Sake 720ml": {
           "stock": 1,
           "price": 31.99,
           "promo": 28.99,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Georg Jensen Hallmark Cuvee 750ml 6pk": {
           "stock": 1,
           "price": 34.99,
           "promo": 27.99,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Glenlivet 12 YR OLD 700ml": {
           "stock": 2,
           "price": 89.99,
           "promo": 72.49,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Gordons Gin Med Orange 700ml": {
           "stock": 1,
           "price": 57.49,
           "promo": 57.49,
           "implemented": true,
-          "units_sold": null
+          "units_sold": 0
         },
         "Greasy Fingers Shiraz 750ml": {
           "stock": 3,
           "price": 21.99,
           "promo": 17.99,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Hakutsuru Junmaiginjo Blue 14% Sake 720ml": {
           "stock": 5,
           "price": 29.99,
           "promo": 27.99,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Hawkers Brawn IPA 440ml": {
           "stock": 1,
           "price": 14.99,
           "promo": 14.19,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Hawkers Original XPA 440ml": {
           "stock": 1,
           "price": 9.99,
           "promo": 9.59,
           "implemented": true,
-          "units_sold": null
+          "units_sold": 0
         },
         "Hawkesbury Coasty Pale Ale 375ml": {
           "stock": 19,
           "price": 4.99,
           "promo": 4.99,
           "implemented": true,
-          "units_sold": null
+          "units_sold": 0
         },
         "Hawkesbury IPA 375ml": {
           "stock": 10,
           "price": 6.99,
           "promo": 5.89,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 1
         },
         "Hawkesbury Watermelon Spritz 1.25L": {
           "stock": 22,
           "price": 14.99,
           "promo": 16.09,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Heaps Normal Lager 355ml": {
           "stock": 10,
           "price": 3.99,
           "promo": 3.89,
           "implemented": true,
-          "units_sold": null
+          "units_sold": 0
         },
         "Hellraiser Bourbon and Cola 375ml 8%": {
           "stock": 20,
           "price": 7.99,
           "promo": 6.19,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Hendricks Flora Adora Gin 700ml": {
           "stock": 1,
           "price": 79.99,
           "promo": null,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 1
         },
         "Hennessy XO Cognac 700ml 6pk": {
           "stock": 2,
           "price": 329.99,
           "promo": 332.99,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Hop Nation Melbourne Fog Hazy Pale 4.8% Can 375ml 16pk": {
           "stock": 7,
           "price": 6.49,
           "promo": 6.19,
           "implemented": true,
-          "units_sold": null
+          "units_sold": 0
         },
         "Houghton Cabernet Sauvignon 750ml": {
           "stock": 4,
           "price": 9.99,
           "promo": 11.49,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Jameson Ultra 10% Lime 250ml": {
           "stock": 43,
           "price": 9.49,
           "promo": 4.39,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 1
         },
         "Jansz Vintage Cuvee 750ml": {
           "stock": 2,
           "price": 54.99,
           "promo": 54.49,
           "implemented": true,
-          "units_sold": null
+          "units_sold": 0
         },
         "KILARNI Cab Sauv 750ML": {
           "stock": 18,
           "price": 14.49,
           "promo": 14.49,
           "implemented": true,
-          "units_sold": null
+          "units_sold": 0
         },
         "Kilarni Estate Shiraz 750ml": {
           "stock": 7,
           "price": 14.49,
           "promo": 15.99,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 2
         },
         "Kilarni Sauv Blanc 750ml": {
           "stock": 11,
           "price": 14.49,
           "promo": 14.49,
           "implemented": true,
-          "units_sold": null
+          "units_sold": 0
         },
         "La Sirene Blueberry Praline Stout 330ml": {
           "stock": 5,
           "price": 9.99,
           "promo": 9.19,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Lindemans Bin 45 Cabernet Sauvignon 750ml": {
           "stock": 3,
           "price": 9.99,
           "promo": 8.49,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Lindemans Bin 95 Sauvignon Blanc 750ml": {
           "stock": 3,
           "price": 9.99,
           "promo": 8.49,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Lindemans Early Harvest Shiraz 750ml": {
           "stock": 5,
           "price": 14.99,
           "promo": 14.99,
           "implemented": true,
-          "units_sold": null
+          "units_sold": 0
         },
         "Little Yering Shiraz 750ml": {
           "stock": 4,
           "price": 22.99,
           "promo": 20.49,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Local Pale Ale 375ml": {
           "stock": 6,
           "price": 5.49,
           "promo": 5.09,
           "implemented": true,
-          "units_sold": null
+          "units_sold": 0
         },
         "Lotte Chum Churum Saero Zero Sugar Soju 360ml": {
           "stock": 17,
           "price": 11.99,
           "promo": 8.89,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 1
         },
         "Lotte Chum Churum Saero Zero Sugar Soju APRICOT 360ml": {
           "stock": 15,
           "price": 11.99,
           "promo": 8.89,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 2
         },
         "Mango Shotta Tequila 50ml": {
           "stock": 9,
           "price": 6.99,
           "promo": 5.49,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Martell Cognac 3 Star VS 700ml": {
           "stock": 1,
           "price": 79.99,
           "promo": 73.49,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 1
         },
         "Matsos ALC Ginger Beer Can 330ml": {
           "stock": 56,
           "price": 5.49,
           "promo": 5.09,
           "implemented": true,
-          "units_sold": null
+          "units_sold": 0
         },
         "Mud House Core Rose 750ml": {
           "stock": 3,
           "price": 19.99,
           "promo": 16.49,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Muhak Good Day Mint Choco 360ml": {
           "stock": 27,
           "price": 9.99,
           "promo": 7.79,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 1
         },
         "One Active Recovery 500ml": {
           "stock": 24,
           "price": 4.49,
           "promo": 4.59,
           "implemented": true,
-          "units_sold": null
+          "units_sold": 0
         },
         "Open Door Shiraz 1L": {
           "stock": 5,
           "price": 9.99,
           "promo": null,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Pals Pineapple, Lime and Soda": {
           "stock": 4,
           "price": 6.99,
           "promo": null,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Penfolds B2 2012 Shiraz Mourvedre 750ml": {
           "stock": 73,
           "price": 39.99,
           "promo": 34.99,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "PENFOLDS B311 CHARDONNAY 2017 750ml": {
           "stock": 1,
           "price": 49.99,
           "promo": 56.49,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Penfolds Club Port 750ml": {
           "stock": 6,
           "price": 14.99,
           "promo": 14.49,
           "implemented": true,
-          "units_sold": null
+          "units_sold": 0
         },
         "Penfolds Maxs Pinot Noir 750ml": {
           "stock": 3,
           "price": 29.99,
           "promo": 28.99,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Pepperjack Graded Langhorne Creek Shiraz 750ml": {
           "stock": 6,
           "price": 36.99,
           "promo": 34.49,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Pepperjack PINOT NOIR 750ML": {
           "stock": 4,
           "price": 24.99,
           "promo": 21.99,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Pepperjack Sparkling 750ml": {
           "stock": 1,
           "price": 24.99,
           "promo": 23.49,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Proper No12 Irish Whiskey 700ml": {
           "stock": 8,
           "price": 66.49,
           "promo": 62.99,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "R/MONDAVI BOURB CAB SAUV 750ML": {
           "stock": 5,
           "price": 21.49,
           "promo": 21.49,
           "implemented": true,
-          "units_sold": null
+          "units_sold": 0
         },
         "Red Hill Chardonnay 750ml": {
           "stock": 4,
           "price": 19.99,
           "promo": null,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Remy Martin XO 700ml": {
           "stock": 2,
           "price": 319.99,
           "promo": 319.99,
           "implemented": true,
-          "units_sold": null
+          "units_sold": 0
         },
         "Sierra Tequila Tropical Chilli 700ml": {
           "stock": 1,
           "price": 41.99,
           "promo": 38.99,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Singha Beer Can 330ml 24pk": {
           "stock": 20,
           "price": 4.29,
           "promo": 3.59,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Smirnoff Crush 10pk 440ml Cans": {
           "stock": 10,
           "price": null,
           "promo": 7.99,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Soho Lychee Flavoured Spirit 700ml": {
           "stock": 1,
           "price": 37.99,
           "promo": 34.49,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Sour Puss Guava 700ml": {
           "stock": 5,
           "price": 29.99,
           "promo": null,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Sour Puss Watermelon Liqueur 700ml": {
           "stock": 4,
           "price": 29.99,
           "promo": 26.99,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Spring Rock Crisp Dry White 4L": {
           "stock": 1,
           "price": 13.99,
           "promo": 13.49,
           "implemented": true,
-          "units_sold": null
+          "units_sold": 2
         },
         "Squealing Pig Pinot Gris 750ml": {
           "stock": 6,
           "price": 19.99,
           "promo": 16.99,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "St Hubert The Stag Shiraz 750ml": {
           "stock": 4,
           "price": 19.99,
           "promo": 15.99,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "St Hugo Barossa Shiraz 750ml": {
           "stock": 5,
           "price": 47.99,
           "promo": 44.99,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Starward Nova Wine Barrel Whisky 700ml": {
           "stock": 2,
           "price": 89.99,
           "promo": 90.49,
           "implemented": true,
-          "units_sold": null
+          "units_sold": 0
         },
         "Stomping Ground Gipps St Pale Ale Can 355ml 24pk": {
           "stock": 18,
           "price": 4.99,
           "promo": 4.39,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Stoneleigh Marlborough Pinot Gris 750ml": {
           "stock": 5,
           "price": 17.99,
           "promo": 14.49,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Stoneleigh Marlborough Pinot Noir Rose 750ml": {
           "stock": 6,
           "price": 17.99,
           "promo": 16.49,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Suntory Jim Beam Highball Apple 5% 350ml": {
           "stock": 2,
           "price": 7.49,
           "promo": 6.99,
           "implemented": true,
-          "units_sold": null
+          "units_sold": 0
         },
         "Ta Ku Pink Sauvignon Blanc 750ml": {
           "stock": 3,
           "price": 16.99,
           "promo": 15.99,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Tatachilla Moscato 750ml": {
           "stock": 5,
           "price": 9.99,
           "promo": null,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Tooheys Extra Dry Can 375ml": {
           "stock": 29,
           "price": 3.49,
           "promo": 2.69,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Tread Softly Shiraz 750ml": {
           "stock": 3,
           "price": 13.99,
           "promo": 12.49,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "WHITLEY NEILL Blood Orange Gin 700ML": {
           "stock": 1,
           "price": 64.99,
           "promo": 65.99,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Wild Boar Spiced Rum & Cola 375ml": {
           "stock": 20,
           "price": 15.99,
           "promo": 15.59,
           "implemented": true,
-          "units_sold": null
+          "units_sold": 0
         },
         "Wild Turkey 101 Proof Bourbon 700ml": {
           "stock": 5,
           "price": 74.99,
           "promo": 74.99,
           "implemented": true,
-          "units_sold": null
+          "units_sold": 0
         },
         "Wild Turkey 81 Proof Bourbon 1L": {
           "stock": 7,
           "price": 74.49,
           "promo": 70.49,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "WIRRA WIRRA MVCG CAB SAU 750ML": {
           "stock": 3,
           "price": 19.99,
           "promo": 20.99,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Yalumba Bush Grenache": {
           "stock": 3,
           "price": 19.99,
           "promo": null,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
         },
         "Yellowglen Colours Red Sparkling 750ml": {
           "stock": 4,
           "price": 11.99,
           "promo": 10.49,
           "implemented": false,
-          "units_sold": null
+          "units_sold": 0
+        }
+      }
+    },
+    {
+      "date": "2026-05-07",
+      "items": {
+        "19 Crimes Malbec 750ml": {
+          "stock": 6,
+          "price": 14.99,
+          "promo": 12.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "19 Crimes The Uprising Red Blend 750ml": {
+          "stock": 7,
+          "price": 14.99,
+          "promo": 12.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Altos Tequila 700ml": {
+          "stock": 3,
+          "price": 67.99,
+          "promo": 63.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Batch & Co Brighton Spritz - Pear Fig & Pinot Grigio 250mL": {
+          "stock": 6,
+          "price": 5.99,
+          "promo": 2.59,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Beenleigh Hard Orange 375ml": {
+          "stock": 4,
+          "price": 5.99,
+          "promo": null,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Berri Estate Rose Cask 5L": {
+          "stock": 3,
+          "price": 24.99,
+          "promo": 21.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Better Beer Middy 3.5% 375ml": {
+          "stock": 28,
+          "price": 2.99,
+          "promo": 2.59,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Billsons Grape Bubblegum 355ml": {
+          "stock": 1,
+          "price": 6.99,
+          "promo": null,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Blackmans Arthur Smoked Porter 375ml": {
+          "stock": 2,
+          "price": 6.99,
+          "promo": 7.09,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Brick Lane Wild Sky No Carb Pale Ale 355ml": {
+          "stock": 21,
+          "price": 3.99,
+          "promo": 3.09,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Brookvale Union Vodka LLB 330ml": {
+          "stock": 0,
+          "price": 5.99,
+          "promo": 5.49,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Brown Brothers Passionfruit Spritz 750ml": {
+          "stock": 1,
+          "price": 17.99,
+          "promo": 14.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Brown Brothers Prosecco 750ml": {
+          "stock": 9,
+          "price": 19.99,
+          "promo": 17.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Brown Brothers Prosecco Spritz 750ml": {
+          "stock": 4,
+          "price": 17.99,
+          "promo": 15.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Brown Brothers Prosecco Spritz Orange 750ml": {
+          "stock": 4,
+          "price": 19.99,
+          "promo": 17.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Brown Brothers Prosecco Yuzu Spritz 750ml": {
+          "stock": 5,
+          "price": 19.99,
+          "promo": 16.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Bumbu Rum 700ml": {
+          "stock": 3,
+          "price": 64.99,
+          "promo": 63.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Bundy Christmas Pudding 700ml": {
+          "stock": 3,
+          "price": 53.99,
+          "promo": 51.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Bundy Up & Zero 4.6% 10pk 375ml": {
+          "stock": 15,
+          "price": 5.99,
+          "promo": 5.09,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Captain Morgan Pina Colada 440ml": {
+          "stock": 21,
+          "price": 7.99,
+          "promo": 7.99,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Chandon Brut NV 750ml": {
+          "stock": 6,
+          "price": 32.99,
+          "promo": 33.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Cruiser Sugar Free Berry Can 275ml": {
+          "stock": 20,
+          "price": 5.99,
+          "promo": 4.79,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Dainton Equalizer Pale Ale 375ml": {
+          "stock": 3,
+          "price": 5.49,
+          "promo": 2.79,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "De Bortoli KV Prosecco Rose 750ml": {
+          "stock": 6,
+          "price": 17.99,
+          "promo": 17.49,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "De Bortoli Pinot Pinot Noir 750ml": {
+          "stock": 1,
+          "price": 16.99,
+          "promo": 13.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "De Bortoli Prem Liqueur Muscat Cask 4L": {
+          "stock": 1,
+          "price": 24.99,
+          "promo": 22.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "De Bortoli Premium Old Tawny 4L": {
+          "stock": 2,
+          "price": 24.99,
+          "promo": 22.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Deep Wood Estate Rose 750ml": {
+          "stock": 1,
+          "price": 24.99,
+          "promo": 27.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Gekkeikan Sake 720ml": {
+          "stock": 1,
+          "price": 31.99,
+          "promo": 28.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Georg Jensen Hallmark Cuvee 750ml 6pk": {
+          "stock": 1,
+          "price": 34.99,
+          "promo": 27.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Glenlivet 12 YR OLD 700ml": {
+          "stock": 2,
+          "price": 89.99,
+          "promo": 72.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Gordons Gin Med Orange 700ml": {
+          "stock": 1,
+          "price": 57.49,
+          "promo": 57.49,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Greasy Fingers Shiraz 750ml": {
+          "stock": 3,
+          "price": 21.99,
+          "promo": 17.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Hakutsuru Junmaiginjo Blue 14% Sake 720ml": {
+          "stock": 5,
+          "price": 29.99,
+          "promo": 27.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Hawkers Brawn IPA 440ml": {
+          "stock": 1,
+          "price": 14.99,
+          "promo": 14.19,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Hawkers Original XPA 440ml": {
+          "stock": 1,
+          "price": 9.99,
+          "promo": 9.59,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Hawkesbury Coasty Pale Ale 375ml": {
+          "stock": 19,
+          "price": 4.99,
+          "promo": 4.99,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Hawkesbury IPA 375ml": {
+          "stock": 10,
+          "price": 6.99,
+          "promo": 5.89,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Hawkesbury Watermelon Spritz 1.25L": {
+          "stock": 22,
+          "price": 14.99,
+          "promo": 16.09,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Heaps Normal Lager 355ml": {
+          "stock": 10,
+          "price": 3.99,
+          "promo": 3.89,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Hellraiser Bourbon and Cola 375ml 8%": {
+          "stock": 20,
+          "price": 7.99,
+          "promo": 6.19,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Hendricks Flora Adora Gin 700ml": {
+          "stock": 1,
+          "price": 79.99,
+          "promo": null,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Hennessy XO Cognac 700ml 6pk": {
+          "stock": 2,
+          "price": 329.99,
+          "promo": 332.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Hop Nation Melbourne Fog Hazy Pale 4.8% Can 375ml 16pk": {
+          "stock": 7,
+          "price": 6.49,
+          "promo": 6.19,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Houghton Cabernet Sauvignon 750ml": {
+          "stock": 4,
+          "price": 9.99,
+          "promo": 11.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Jameson Ultra 10% Lime 250ml": {
+          "stock": 43,
+          "price": 9.49,
+          "promo": 4.39,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Jansz Vintage Cuvee 750ml": {
+          "stock": 2,
+          "price": 54.99,
+          "promo": 54.49,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "KILARNI Cab Sauv 750ML": {
+          "stock": 18,
+          "price": 14.49,
+          "promo": 14.49,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Kilarni Estate Shiraz 750ml": {
+          "stock": 7,
+          "price": 14.49,
+          "promo": 15.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Kilarni Sauv Blanc 750ml": {
+          "stock": 11,
+          "price": 14.49,
+          "promo": 14.49,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "La Sirene Blueberry Praline Stout 330ml": {
+          "stock": 5,
+          "price": 9.99,
+          "promo": 9.19,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Lindemans Bin 45 Cabernet Sauvignon 750ml": {
+          "stock": 3,
+          "price": 9.99,
+          "promo": 8.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Lindemans Bin 95 Sauvignon Blanc 750ml": {
+          "stock": 3,
+          "price": 9.99,
+          "promo": 8.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Lindemans Early Harvest Shiraz 750ml": {
+          "stock": 5,
+          "price": 14.99,
+          "promo": 14.99,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Little Yering Shiraz 750ml": {
+          "stock": 4,
+          "price": 22.99,
+          "promo": 20.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Local Pale Ale 375ml": {
+          "stock": 6,
+          "price": 5.49,
+          "promo": 5.09,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Lotte Chum Churum Saero Zero Sugar Soju 360ml": {
+          "stock": 17,
+          "price": 11.99,
+          "promo": 8.89,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Lotte Chum Churum Saero Zero Sugar Soju APRICOT 360ml": {
+          "stock": 15,
+          "price": 11.99,
+          "promo": 8.89,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Mango Shotta Tequila 50ml": {
+          "stock": 9,
+          "price": 6.99,
+          "promo": 5.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Martell Cognac 3 Star VS 700ml": {
+          "stock": 1,
+          "price": 79.99,
+          "promo": 73.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Matsos ALC Ginger Beer Can 330ml": {
+          "stock": 56,
+          "price": 5.49,
+          "promo": 5.09,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Mud House Core Rose 750ml": {
+          "stock": 3,
+          "price": 19.99,
+          "promo": 16.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Muhak Good Day Mint Choco 360ml": {
+          "stock": 27,
+          "price": 9.99,
+          "promo": 7.79,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "One Active Recovery 500ml": {
+          "stock": 24,
+          "price": 4.49,
+          "promo": 4.59,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Open Door Shiraz 1L": {
+          "stock": 5,
+          "price": 9.99,
+          "promo": null,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Pals Pineapple, Lime and Soda": {
+          "stock": 4,
+          "price": 6.99,
+          "promo": null,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Penfolds B2 2012 Shiraz Mourvedre 750ml": {
+          "stock": 73,
+          "price": 39.99,
+          "promo": 34.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "PENFOLDS B311 CHARDONNAY 2017 750ml": {
+          "stock": 1,
+          "price": 49.99,
+          "promo": 56.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Penfolds Club Port 750ml": {
+          "stock": 6,
+          "price": 14.99,
+          "promo": 14.49,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Penfolds Maxs Pinot Noir 750ml": {
+          "stock": 3,
+          "price": 29.99,
+          "promo": 28.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Pepperjack Graded Langhorne Creek Shiraz 750ml": {
+          "stock": 6,
+          "price": 36.99,
+          "promo": 34.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Pepperjack PINOT NOIR 750ML": {
+          "stock": 4,
+          "price": 24.99,
+          "promo": 21.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Pepperjack Sparkling 750ml": {
+          "stock": 1,
+          "price": 24.99,
+          "promo": 23.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Proper No12 Irish Whiskey 700ml": {
+          "stock": 8,
+          "price": 66.49,
+          "promo": 62.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "R/MONDAVI BOURB CAB SAUV 750ML": {
+          "stock": 5,
+          "price": 21.49,
+          "promo": 21.49,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Red Hill Chardonnay 750ml": {
+          "stock": 4,
+          "price": 19.99,
+          "promo": null,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Remy Martin XO 700ml": {
+          "stock": 2,
+          "price": 319.99,
+          "promo": 319.99,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Sierra Tequila Tropical Chilli 700ml": {
+          "stock": 1,
+          "price": 41.99,
+          "promo": 38.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Singha Beer Can 330ml 24pk": {
+          "stock": 20,
+          "price": 4.29,
+          "promo": 3.59,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Smirnoff Crush 10pk 440ml Cans": {
+          "stock": 10,
+          "price": null,
+          "promo": 7.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Soho Lychee Flavoured Spirit 700ml": {
+          "stock": 1,
+          "price": 37.99,
+          "promo": 34.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Sour Puss Guava 700ml": {
+          "stock": 5,
+          "price": 29.99,
+          "promo": null,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Sour Puss Watermelon Liqueur 700ml": {
+          "stock": 4,
+          "price": 29.99,
+          "promo": 26.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Spring Rock Crisp Dry White 4L": {
+          "stock": 1,
+          "price": 13.99,
+          "promo": 13.49,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Squealing Pig Pinot Gris 750ml": {
+          "stock": 6,
+          "price": 19.99,
+          "promo": 16.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "St Hubert The Stag Shiraz 750ml": {
+          "stock": 4,
+          "price": 19.99,
+          "promo": 15.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "St Hugo Barossa Shiraz 750ml": {
+          "stock": 5,
+          "price": 47.99,
+          "promo": 44.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Starward Nova Wine Barrel Whisky 700ml": {
+          "stock": 2,
+          "price": 89.99,
+          "promo": 90.49,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Stomping Ground Gipps St Pale Ale Can 355ml 24pk": {
+          "stock": 18,
+          "price": 4.99,
+          "promo": 4.39,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Stoneleigh Marlborough Pinot Gris 750ml": {
+          "stock": 5,
+          "price": 17.99,
+          "promo": 14.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Stoneleigh Marlborough Pinot Noir Rose 750ml": {
+          "stock": 6,
+          "price": 17.99,
+          "promo": 16.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Suntory Jim Beam Highball Apple 5% 350ml": {
+          "stock": 2,
+          "price": 7.49,
+          "promo": 6.99,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Ta Ku Pink Sauvignon Blanc 750ml": {
+          "stock": 3,
+          "price": 16.99,
+          "promo": 15.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Tatachilla Moscato 750ml": {
+          "stock": 5,
+          "price": 9.99,
+          "promo": null,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Tooheys Extra Dry Can 375ml": {
+          "stock": 29,
+          "price": 3.49,
+          "promo": 2.69,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Tread Softly Shiraz 750ml": {
+          "stock": 3,
+          "price": 13.99,
+          "promo": 12.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "WHITLEY NEILL Blood Orange Gin 700ML": {
+          "stock": 1,
+          "price": 64.99,
+          "promo": 65.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Wild Boar Spiced Rum & Cola 375ml": {
+          "stock": 20,
+          "price": 15.99,
+          "promo": 15.59,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Wild Turkey 101 Proof Bourbon 700ml": {
+          "stock": 5,
+          "price": 74.99,
+          "promo": 74.99,
+          "implemented": true,
+          "units_sold": 0
+        },
+        "Wild Turkey 81 Proof Bourbon 1L": {
+          "stock": 7,
+          "price": 74.49,
+          "promo": 70.49,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "WIRRA WIRRA MVCG CAB SAU 750ML": {
+          "stock": 3,
+          "price": 19.99,
+          "promo": 20.99,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Yalumba Bush Grenache": {
+          "stock": 3,
+          "price": 19.99,
+          "promo": null,
+          "implemented": false,
+          "units_sold": 0
+        },
+        "Yellowglen Colours Red Sparkling 750ml": {
+          "stock": 4,
+          "price": 11.99,
+          "promo": 10.49,
+          "implemented": false,
+          "units_sold": 0
         }
       }
     }
