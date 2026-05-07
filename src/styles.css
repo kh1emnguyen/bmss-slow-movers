@@ -804,6 +804,362 @@ tbody tr.row-below-floor:hover {
   color: var(--gold);
 }
 
+/* ============ Promo column A/B tier toggle ============ */
+
+/* Promo th — sortable + contains the tier toggle inline */
+.promo-toggle-th {
+  cursor: pointer;
+  white-space: nowrap;
+  position: relative;
+}
+
+.promo-toggle-th .tier-toggle {
+  display: inline-flex;
+  gap: 2px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.tier-btn {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 2px 5px;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: transparent;
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: all 0.12s ease;
+  line-height: 1.2;
+}
+
+.tier-btn:hover {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+}
+
+.tier-btn.active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--ink);
+}
+
+/* In promotions intro — light-background variant */
+.promo-floor-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.promo-floor-toggle .tier-btn {
+  border-color: var(--rule);
+  background: var(--paper-tint);
+  color: var(--ink-soft);
+  padding: 4px 10px;
+  font-size: 10px;
+}
+
+.promo-floor-toggle .tier-btn:hover {
+  border-color: var(--ink-soft);
+  color: var(--ink);
+  background: var(--paper-deep);
+}
+
+.promo-floor-toggle .tier-btn.active {
+  background: var(--oxblood);
+  border-color: var(--oxblood);
+  color: var(--paper);
+}
+
+.tier-btn-desc {
+  font-weight: 400;
+  opacity: 0.75;
+  margin-left: 4px;
+}
+
+/* ============ Promotions tab ============ */
+.promotions-wrap {
+  padding: 32px 40px 60px;
+}
+
+.promotions-intro {
+  max-width: 640px;
+  margin-bottom: 32px;
+}
+
+.promotions-intro h2 {
+  font-family: var(--serif);
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+.promotions-intro p {
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.promotions-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.promotions-column-header {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-faint);
+  padding: 8px 0 12px;
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 12px;
+}
+
+/* Promo cards */
+.promo-card {
+  display: flex;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+.promo-card:last-child {
+  border-bottom: none;
+}
+
+.promo-card-rank {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--rule);
+  min-width: 28px;
+  line-height: 1;
+  padding-top: 2px;
+}
+
+.promo-card-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.promo-card-name {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+
+.promo-card-cat {
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-faint);
+  margin-bottom: 8px;
+}
+
+.promo-card-prices {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+  font-family: var(--mono);
+  font-size: 12px;
+}
+
+.promo-card-shelf {
+  color: var(--ink-soft);
+  text-decoration: line-through;
+  text-decoration-color: var(--rule);
+}
+
+.promo-card-arrow {
+  color: var(--ink-faint);
+  font-size: 10px;
+}
+
+.promo-card-promo {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--oxblood);
+}
+
+.promo-card-pct {
+  background: var(--oxblood);
+  color: var(--paper);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  letter-spacing: 0.04em;
+}
+
+.promo-card-unit {
+  color: var(--ink-faint);
+  font-size: 11px;
+}
+
+.promo-card-reasons {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.promo-card-reasons li {
+  font-size: 12px;
+  color: var(--ink-soft);
+  line-height: 1.4;
+  padding-left: 14px;
+  position: relative;
+}
+
+.promo-card-reasons li::before {
+  content: '·';
+  position: absolute;
+  left: 4px;
+  color: var(--oxblood);
+  font-weight: 700;
+}
+
+/* ============ Weekly Tracker tab ============ */
+.tracker-wrap {
+  padding: 0 0 60px;
+}
+
+.tracker-empty {
+  padding: 60px 40px;
+  max-width: 600px;
+}
+
+.tracker-empty h2 {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.tracker-empty p {
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+
+.tracker-code {
+  font-family: var(--mono);
+  font-size: 12px;
+  background: var(--ink);
+  color: var(--gold);
+  padding: 10px 16px;
+  margin: 12px 0;
+  display: block;
+  overflow-x: auto;
+}
+
+.tracker-empty code {
+  font-family: var(--mono);
+  font-size: 12px;
+  background: var(--paper-deep);
+  padding: 2px 5px;
+  border-radius: 2px;
+}
+
+.tracker-legend {
+  display: flex;
+  gap: 20px;
+  padding: 10px 40px;
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+.tl-item { display: flex; align-items: center; gap: 4px; }
+.tl-impl    { color: var(--signal-good); }
+.tl-pending { color: var(--ink-faint); }
+.tl-sold    { color: var(--oxblood); }
+
+.stat-value.good { color: var(--signal-good); }
+
+/* Tracker table cells */
+.week-th {
+  font-family: var(--mono);
+  font-size: 9px;
+  text-align: center;
+  min-width: 80px;
+}
+
+.week-th-sub {
+  font-size: 8px;
+  opacity: 0.6;
+  display: block;
+  margin-top: 2px;
+}
+
+.tracker-name-th { min-width: 200px; }
+
+.tracker-cell {
+  text-align: center;
+  padding: 6px 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  vertical-align: middle;
+  position: relative;
+}
+
+.tracker-cell.impl    { background: rgba(45, 80, 22, 0.08); }
+.tracker-cell.pending { background: transparent; }
+
+.tracker-stock {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.tracker-sold {
+  font-size: 10px;
+  color: var(--oxblood);
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.tracker-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin: 3px auto 0;
+}
+
+.dot-impl    { background: var(--signal-good); }
+.dot-pending { background: var(--rule); }
+
+.tracker-row-impl td.name { color: var(--signal-good); }
+
+.tracker-sold-total {
+  font-family: var(--mono);
+  font-weight: 700;
+  color: var(--signal-good);
+}
+
+.tracker-na {
+  text-align: center;
+  color: var(--ink-faint);
+  font-size: 11px;
+}
+
 /* ============ Responsive ============ */
 @media (max-width: 880px) {
   .masthead { padding: 18px 20px 12px; }
@@ -817,4 +1173,8 @@ tbody tr.row-below-floor:hover {
   .specials-wrap { padding: 24px 20px 40px; }
   .specials-grid { grid-template-columns: 1fr; }
   .rules-strip { padding: 14px 20px; gap: 20px; }
+  .promotions-wrap { padding: 24px 20px 40px; }
+  .promotions-columns { grid-template-columns: 1fr; }
+  .tracker-empty { padding: 40px 20px; }
+  .tracker-legend { padding: 10px 20px; }
 }

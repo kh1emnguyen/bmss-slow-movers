@@ -70,6 +70,12 @@ case "$COMMAND" in
 
   # ── push ──────────────────────────────────────────────────────────────────
   push)
+    # Init main repo if it doesn't exist yet
+    if [[ ! -d ".git" ]]; then
+      echo "→ Initialising git repository..."
+      git init -q
+      git remote add origin "$REMOTE_URL"
+    fi
     MSG="${2:-"chore: sync $(date '+%Y-%m-%d %H:%M')"}"
     echo "→ Staging all changes..."
     git add -A
@@ -97,14 +103,18 @@ case "$COMMAND" in
     echo "→ Building for production..."
     "$NPM" run build
     echo "→ Force-pushing dist/ to gh-pages branch..."
-    # Stage dist/ then extract just that subtree as a standalone commit
-    git add dist/ -f
-    TREE=$(git write-tree --prefix=dist/)
-    COMMIT=$(git commit-tree "$TREE" -m "deploy: $(date '+%Y-%m-%d %H:%M')")
-    git push "$REMOTE_URL" "$COMMIT:refs/heads/gh-pages" --force
+    # Spin up a throwaway git repo inside dist/ — works even if the main
+    # folder has no .git yet, and leaves no history in the source tree.
+    cd dist/
+    git init -q
+    git add -A
+    git commit -q -m "deploy: $(date '+%Y-%m-%d %H:%M')"
+    git push "$REMOTE_URL" HEAD:gh-pages --force
+    cd ..
+    rm -rf dist/.git
     echo "✓ Deployed → https://kh1emnguyen.github.io/bmss-slow-movers/"
     echo ""
-    echo "  If this is your first deploy, go to:"
+    echo "  First deploy? Go to:"
     echo "  GitHub → repo Settings → Pages → Source → gh-pages branch → / (root) → Save"
     ;;
 

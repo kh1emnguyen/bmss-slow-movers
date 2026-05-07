@@ -3,11 +3,34 @@ import { data } from './data.js'
 
 const ITEMS_PER_PAGE = 50
 
+// Default (standard) margin floors — used as fallback
 const MARGINS = {
   beer_cider_rtd: { single: 0.35, unit: 0.25 },
   wine:           { single: 0.30, unit: 0.30 },
   spirits:        { single: 0.15, unit: 0.15 },
 }
+
+// Two margin floor tiers — toggled from within the promo column header
+// A = lower floors (more aggressive promos), B = tighter floors (more conservative)
+const MARGIN_TIERS = [
+  {
+    label:          'A',
+    desc:           'Beer 35/25 · Wine 25 · Spirits 15',
+    beer_cider_rtd: { single: 0.35, unit: 0.25 },
+    wine:           { single: 0.25, unit: 0.25 },
+    spirits:        { single: 0.15, unit: 0.15 },
+  },
+  {
+    label:          'B',
+    desc:           'Beer 40/30 · Wine 30 · Spirits 20',
+    beer_cider_rtd: { single: 0.40, unit: 0.30 },
+    wine:           { single: 0.30, unit: 0.30 },
+    spirits:        { single: 0.20, unit: 0.20 },
+  },
+]
+
+// Permanently exclude items with zero sales (archaic — not sold since May 2025)
+const ACTIVE_ROWS = data.rows.filter(r => !r.never_sold)
 
 const fmt = {
   money: (n) =>
@@ -35,16 +58,44 @@ function roundNearest49or99(price) {
 
 // ── Promo calculators (for live cost-override rows) ──────────────────────────
 
-function calcPromoSingle(cost, group) {
-  if (!cost || cost <= 0) return null
-  const raw = cost / (1 - MARGINS[group].single)
-  return roundNearest49or99(raw)
+const MAX_SHELF_DISCOUNT = 0.20   // wine/spirits: promo never more than 20% off shelf
+
+/** Apply 20%-off-shelf cap for wine/spirits. Beer is uncapped. */
+function applyShelfCap(floor, shelfPrice, group) {
+  if (!floor || !shelfPrice || group === 'beer_cider_rtd') return floor
+  const minPromo = shelfPrice * (1 - MAX_SHELF_DISCOUNT)
+  return floor < minPromo ? roundNearest49or99(minPromo) : floor
 }
 
-function calcPromoUnit(cost, group, unitSize) {
+function calcPromoSingle(cost, group, shelfPrice, margins = MARGINS) {
+  if (!cost || cost <= 0) return null
+  const raw = cost / (1 - margins[group].single)
+  const floor = roundNearest49or99(raw)
+  return applyShelfCap(floor, shelfPrice, group)
+}
+
+function calcPromoUnit(cost, group, unitSize, shelfUnitPrice, margins = MARGINS) {
   if (!cost || cost <= 0 || !unitSize) return null
-  const raw = (cost * unitSize) / (1 - MARGINS[group].unit)
-  return roundNearest49or99(raw)
+  const raw = (cost * unitSize) / (1 - margins[group].unit)
+  const floor = roundNearest49or99(raw)
+  return applyShelfCap(floor, shelfUnitPrice, group)
+}
+
+/** Score an item for promotion prominence (higher = better candidate). */
+function promoScore(r, margins) {
+  const promo = (!r.cost_missing && r.cost > 0)
+    ? calcPromoSingle(r.cost, r.group, r.current_single_price, margins)
+    : r.promo_single_price
+  if (!promo || !r.current_single_price || promo >= r.current_single_price) return -Infinity
+  const discountAmt = r.current_single_price - promo
+  const discountPct = discountAmt / r.current_single_price
+  return (
+    r.stock_value_at_cost * 1.2 +
+    discountAmt * 25 +
+    discountPct * 300 +
+    (r.transactions <= 1 ? 80 : (3 - Math.min(r.transactions, 3)) * 30) +
+    r.total_on_hand * 1.5
+  )
 }
 
 function deriveStatus(current, promo) {
@@ -102,10 +153,9 @@ function Pagination({ page, totalPages, setPage }) {
 
 // ── Slow Movers tab ──────────────────────────────────────────────────────────
 
-function SlowMoversTab() {
+function SlowMoversTab({ activeMargins, marginTier, setMarginTier }) {
   const [search,          setSearch]          = useState('')
   const [groupFilter,     setGroupFilter]     = useState('all')
-  const [neverSoldOnly,   setNeverSoldOnly]   = useState(false)
   const [discountableOnly,setDiscountableOnly]= useState(false)
   const [showBelowFloor,  setShowBelowFloor]  = useState(false)
   const [sort,            setSort]            = useState({ field: 'stock_value_at_cost', dir: 'desc' })
@@ -113,13 +163,22 @@ function SlowMoversTab() {
   const [page,            setPage]            = useState(1)
   const tableScrollRef = useRef(null)
 
-  // ── Live promo helpers (cost-override aware) ──────────────────────────────
+  // ── Live promo helpers — always calc from cost using active margins ────────
 
-  const getEffCost    = (r) => overrideCosts[r.name] ?? r.cost
-  const getPromoSingle= (r) => overrideCosts[r.name] != null ? calcPromoSingle(overrideCosts[r.name], r.group) : r.promo_single_price
-  const getPromoUnit  = (r) => overrideCosts[r.name] != null ? calcPromoUnit(overrideCosts[r.name], r.group, r.unit_size) : r.promo_unit_price
-  const getSingleStatus=(r) => overrideCosts[r.name] != null ? deriveStatus(r.current_single_price, getPromoSingle(r)) : r.single_status
-  const getUnitStatus = (r) => overrideCosts[r.name] != null ? deriveStatus(r.current_unit_price,   getPromoUnit(r))   : r.unit_status
+  const getEffCost = (r) => overrideCosts[r.name] ?? r.cost
+
+  const getPromoSingle = (r) => {
+    const cost = overrideCosts[r.name] ?? (r.cost_missing ? null : r.cost)
+    if (cost != null && cost > 0) return calcPromoSingle(cost, r.group, r.current_single_price, activeMargins)
+    return r.promo_single_price
+  }
+  const getPromoUnit = (r) => {
+    const cost = overrideCosts[r.name] ?? (r.cost_missing ? null : r.cost)
+    if (cost != null && cost > 0) return calcPromoUnit(cost, r.group, r.unit_size, r.current_unit_price, activeMargins)
+    return r.promo_unit_price
+  }
+  const getSingleStatus = (r) => deriveStatus(r.current_single_price, getPromoSingle(r))
+  const getUnitStatus   = (r) => deriveStatus(r.current_unit_price,   getPromoUnit(r))
 
   const handleCostChange = (name, val) => {
     const parsed = parseFloat(val)
@@ -144,13 +203,12 @@ function SlowMoversTab() {
   // ── Filter + sort ─────────────────────────────────────────────────────────
 
   const filtered = useMemo(() => {
-    let rows = data.rows
+    let rows = ACTIVE_ROWS   // never_sold items already excluded
 
     if (!showBelowFloor) {
       rows = rows.filter(r => getSingleStatus(r) !== 'above_current')
     }
     if (groupFilter !== 'all')  rows = rows.filter(r => r.group === groupFilter)
-    if (neverSoldOnly)          rows = rows.filter(r => r.never_sold)
     if (discountableOnly)       rows = rows.filter(r => getSingleStatus(r) === 'discount')
     if (search.trim()) {
       const q = search.toLowerCase()
@@ -164,47 +222,47 @@ function SlowMoversTab() {
       return sort.dir === 'asc' ? av - bv : bv - av
     })
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search, groupFilter, neverSoldOnly, discountableOnly, showBelowFloor, sort, overrideCosts])
+  }, [search, groupFilter, discountableOnly, showBelowFloor, sort, overrideCosts, activeMargins])
 
   // Reset page whenever filters change
   useEffect(() => setPage(1),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [search, groupFilter, neverSoldOnly, discountableOnly, showBelowFloor, sort])
+    [search, groupFilter, discountableOnly, showBelowFloor, sort, activeMargins])
 
-  const totalPages    = Math.ceil(filtered.length / ITEMS_PER_PAGE)
-  const pageRows      = filtered.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)
-  const totalValue    = filtered.reduce((s, r) => s + r.stock_value_at_cost, 0)
-  const belowFloorCt  = data.rows.filter(r => r.single_status === 'above_current').length
+  const totalPages   = Math.ceil(filtered.length / ITEMS_PER_PAGE)
+  const pageRows     = filtered.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)
+  const totalValue   = filtered.reduce((s, r) => s + r.stock_value_at_cost, 0)
+  const belowFloorCt = ACTIVE_ROWS.filter(r => getSingleStatus(r) === 'above_current').length
 
   return (
     <>
       {/* ── Stats strip ── */}
       <div className="stats-strip">
         <div className="stat">
-          <div className="stat-label">Slow movers identified</div>
-          <div className="stat-value warn">{data.rows.length}</div>
-          <div className="stat-detail">{data.rows.filter(r => r.never_sold).length} never sold YTD</div>
+          <div className="stat-label">Active slow movers</div>
+          <div className="stat-value warn">{ACTIVE_ROWS.length}</div>
+          <div className="stat-detail">{data.rows.filter(r => r.never_sold).length} archaic excluded</div>
         </div>
         <div className="stat">
           <div className="stat-label">Capital tied up</div>
           <div className="stat-value warn">
-            ${Math.round(data.rows.reduce((s, r) => s + r.stock_value_at_cost, 0)).toLocaleString()}
+            ${Math.round(ACTIVE_ROWS.reduce((s, r) => s + r.stock_value_at_cost, 0)).toLocaleString()}
           </div>
-          <div className="stat-detail">at cost across {data.rows.length} SKUs</div>
+          <div className="stat-detail">at cost across {ACTIVE_ROWS.length} SKUs</div>
         </div>
         <div className="stat">
           <div className="stat-label">Beer · Cider · RTD</div>
-          <div className="stat-value">{data.rows.filter(r => r.group === 'beer_cider_rtd').length}</div>
+          <div className="stat-value">{ACTIVE_ROWS.filter(r => r.group === 'beer_cider_rtd').length}</div>
           <div className="stat-detail">≤ 1 unit sold</div>
         </div>
         <div className="stat">
           <div className="stat-label">Wine</div>
-          <div className="stat-value">{data.rows.filter(r => r.group === 'wine').length}</div>
+          <div className="stat-value">{ACTIVE_ROWS.filter(r => r.group === 'wine').length}</div>
           <div className="stat-detail">≤ 1 bottle sold</div>
         </div>
         <div className="stat">
           <div className="stat-label">Spirits</div>
-          <div className="stat-value">{data.rows.filter(r => r.group === 'spirits').length}</div>
+          <div className="stat-value">{ACTIVE_ROWS.filter(r => r.group === 'spirits').length}</div>
           <div className="stat-detail">≤ 1 bottle sold</div>
         </div>
       </div>
@@ -228,10 +286,6 @@ function SlowMoversTab() {
           ))}
         </div>
         <label className="toggle">
-          <input type="checkbox" checked={neverSoldOnly}    onChange={e => setNeverSoldOnly(e.target.checked)} />
-          <span className="toggle-label">Never sold only</span>
-        </label>
-        <label className="toggle">
           <input type="checkbox" checked={discountableOnly} onChange={e => setDiscountableOnly(e.target.checked)} />
           <span className="toggle-label">Discountable only</span>
         </label>
@@ -245,7 +299,7 @@ function SlowMoversTab() {
       <div className="table-wrap">
         <div className="results-meta">
           <span>
-            <strong>{filtered.length}</strong> of {data.rows.length} items shown
+            <strong>{filtered.length}</strong> of {ACTIVE_ROWS.length} items shown
             {!showBelowFloor && belowFloorCt > 0 &&
               <span className="below-floor-note"> · {belowFloorCt} below-floor hidden</span>}
           </span>
@@ -267,7 +321,16 @@ function SlowMoversTab() {
                     <SortableHeader label="Sold YTD"    field="transactions"        sort={sort} setSort={setSort} />
                     <th title="Edit to recalculate promo prices. Amber = suspect cost data.">Cost ✎</th>
                     <th>Single now</th>
-                    <SortableHeader label="Single promo" field="promo_single_price" sort={sort} setSort={setSort} />
+                    <th
+                      className={`promo-toggle-th${sort.field === 'promo_single_price' ? ` sorted ${sort.dir}` : ''}`}
+                      onClick={e => { if (!e.target.closest('.tier-toggle')) setSort({ field: 'promo_single_price', dir: sort.field === 'promo_single_price' && sort.dir === 'desc' ? 'asc' : 'desc' }) }}
+                    >
+                      Single promo
+                      <span className="tier-toggle" onClick={e => e.stopPropagation()}>
+                        <button className={`tier-btn${marginTier === 0 ? ' active' : ''}`} onClick={() => setMarginTier(0)} title={MARGIN_TIERS[0].desc}>A</button>
+                        <button className={`tier-btn${marginTier === 1 ? ' active' : ''}`} onClick={() => setMarginTier(1)} title={MARGIN_TIERS[1].desc}>B</button>
+                      </span>
+                    </th>
                     <th>Status</th>
                     <th>Unit (×n)</th>
                     <th>Unit now</th>
@@ -288,15 +351,9 @@ function SlowMoversTab() {
                     return (
                       <tr
                         key={r.name}
-                        className={[
-                          r.never_sold   ? 'never-sold'    : '',
-                          isBelowFloor   ? 'row-below-floor' : '',
-                        ].filter(Boolean).join(' ')}
+                        className={isBelowFloor ? 'row-below-floor' : ''}
                       >
-                        <td className="name">
-                          {r.name}
-                          {r.never_sold && <span className="never-sold-tag">0 sold</span>}
-                        </td>
+                        <td className="name">{r.name}</td>
                         <td className="cat">{r.category}</td>
                         <td className="num">{r.total_on_hand}</td>
                         <td className="num">{fmt.money(r.stock_value_at_cost)}</td>
@@ -343,6 +400,286 @@ function SlowMoversTab() {
         )}
       </div>
     </>
+  )
+}
+
+// ── Promotions tab ───────────────────────────────────────────────────────────
+
+const WELL_KNOWN = new Set([
+  'Heineken','Asahi','Corona','Carlsberg','Stella','Singha','Tsing Tao',
+  'Smirnoff','Bombay','Bacardi','Captain Morgan','Jameson','Glenfiddich',
+  'Glenlivet','Macallan','Hennessy','Remy Martin','Martell','Patron',
+  'Jose Cuervo','Don Julio','Penfolds','Wolf Blass','Yellow Tail','Wynns',
+  'Brown Brothers','Jacobs Creek','Lindemans','Oyster Bay','Moet','Chandon',
+  'Grey Goose','Belvedere','Tanqueray','Hendricks','Johnnie Walker',
+  'Chivas','Ballantines','Buffalo Trace','Makers Mark','Woodford','Bumbu',
+  'Kraken','Malibu','Aperol','Kahlua','Coopers','Great Northern',
+])
+
+function isWellKnown(name) {
+  return [...WELL_KNOWN].some(b => name.toLowerCase().includes(b.toLowerCase()))
+}
+
+function buildJustification(r, promo, activeMargins) {
+  const parts = []
+  if (r.stock_value_at_cost >= 150)
+    parts.push(`$${r.stock_value_at_cost.toFixed(0)} tied up at cost (${r.total_on_hand} units on shelf)`)
+  if (r.transactions <= 2)
+    parts.push(`Only ${r.transactions} transaction${r.transactions === 1 ? '' : 's'} Jan–Apr 2026 — barely moving`)
+  if (promo && r.current_single_price) {
+    const pct = ((r.current_single_price - promo) / r.current_single_price * 100).toFixed(0)
+    parts.push(`${pct}% saving off shelf price — enough to drive impulse purchases`)
+  }
+  if (isWellKnown(r.name))
+    parts.push(`Recognised brand — a visible discount should convert browser to buyer quickly`)
+  if (r.group === 'wine' && r.cost >= 8)
+    parts.push(`Mid-tier wine at $${r.cost.toFixed(2)} cost — shelf-talker plus discount typically resolves slow wine`)
+  if (r.group === 'spirits' && r.cost >= 30)
+    parts.push(`Premium spirit — even a modest promo at the margin floor is enough to trigger a trial purchase`)
+  if (r.unit_size) {
+    const up = calcPromoUnit(r.cost, r.group, r.unit_size, r.current_unit_price, activeMargins)
+    if (up && r.current_unit_price) {
+      const pct = ((r.current_unit_price - up) / r.current_unit_price * 100).toFixed(0)
+      parts.push(`Case/pack deal: ${pct}% off at ${fmt.money(up)} for ×${r.unit_size} — good for regulars stocking up`)
+    }
+  }
+  return parts.length ? parts : ['High stock value relative to sales velocity — prioritise for shelf promotion']
+}
+
+function PromoCard({ row, rank, activeMargins }) {
+  const promo     = (!row.cost_missing && row.cost > 0)
+    ? calcPromoSingle(row.cost, row.group, row.current_single_price, activeMargins)
+    : row.promo_single_price
+  const promoUnit = (!row.cost_missing && row.cost > 0 && row.unit_size)
+    ? calcPromoUnit(row.cost, row.group, row.unit_size, row.current_unit_price, activeMargins)
+    : row.promo_unit_price
+  const discountPct = promo && row.current_single_price
+    ? ((row.current_single_price - promo) / row.current_single_price * 100).toFixed(0)
+    : null
+  const reasons = buildJustification(row, promo, activeMargins)
+
+  return (
+    <div className="promo-card">
+      <div className="promo-card-rank">#{rank}</div>
+      <div className="promo-card-body">
+        <div className="promo-card-name">{row.name}</div>
+        <div className="promo-card-cat">{row.category}</div>
+        <div className="promo-card-prices">
+          <span className="promo-card-shelf">
+            Shelf {fmt.money(row.current_single_price)}
+          </span>
+          <span className="promo-card-arrow">→</span>
+          <span className="promo-card-promo">{fmt.money(promo)}</span>
+          {discountPct && <span className="promo-card-pct">−{discountPct}%</span>}
+          {promoUnit && row.unit_size &&
+            <span className="promo-card-unit">· ×{row.unit_size} {fmt.money(promoUnit)}</span>}
+        </div>
+        <ul className="promo-card-reasons">
+          {reasons.map((r, i) => <li key={i}>{r}</li>)}
+        </ul>
+      </div>
+    </div>
+  )
+}
+
+function PromotionsTab({ activeMargins, marginTier, setMarginTier }) {
+  const groups = [
+    { key: 'beer_cider_rtd', label: 'Beer · Cider · RTD' },
+    { key: 'wine',           label: 'Wine' },
+    { key: 'spirits',        label: 'Spirits' },
+  ]
+
+  const topByGroup = useMemo(() =>
+    Object.fromEntries(groups.map(({ key }) => {
+      const scored = ACTIVE_ROWS
+        .filter(r => r.group === key)
+        .map(r => ({ r, score: promoScore(r, activeMargins) }))
+        .filter(x => x.score > -Infinity)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 10)
+        .map(x => x.r)
+      return [key, scored]
+    })),
+  [activeMargins])
+
+  return (
+    <div className="promotions-wrap">
+      <div className="promotions-intro">
+        <h2>Top Promotion Picks</h2>
+        <p>
+          The 10 highest-priority items per category — ranked by capital tied up,
+          sales velocity, discount depth, and brand recognition.
+          Prices reflect the active margin floor.
+        </p>
+        <div className="promo-floor-toggle">
+          <span className="toolbar-label">Floor</span>
+          {MARGIN_TIERS.map((t, i) => (
+            <button key={i} className={`tier-btn${marginTier === i ? ' active' : ''}`} onClick={() => setMarginTier(i)} title={t.desc}>
+              {t.label} <span className="tier-btn-desc">{t.desc}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+      <div className="promotions-columns">
+        {groups.map(({ key, label }) => (
+          <div key={key} className="promotions-column">
+            <div className="promotions-column-header">{label}</div>
+            {topByGroup[key].length === 0
+              ? <div className="empty">No discountable items in this group.</div>
+              : topByGroup[key].map((r, i) => (
+                  <PromoCard key={r.name} row={r} rank={i + 1} activeMargins={activeMargins} />
+                ))
+            }
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ── Weekly Tracker tab ────────────────────────────────────────────────────────
+
+function TrackerTab() {
+  const [groupFilter, setGroupFilter] = useState('all')
+  const [search,      setSearch]      = useState('')
+  const history = data.history || []
+
+  // Per-item tracker data derived from history snapshots
+  const trackerRows = useMemo(() => {
+    const rows = ACTIVE_ROWS.filter(r => {
+      if (groupFilter !== 'all' && r.group !== groupFilter) return false
+      if (search.trim() && !r.name.toLowerCase().includes(search.toLowerCase())) return false
+      return true
+    })
+
+    return rows.map(r => {
+      let implWeek = null
+      let soldSinceImpl = 0
+      const weeks = history.map(snap => {
+        const item = snap.items?.[r.name]
+        if (!item) return { date: snap.date, missing: true }
+        if (item.implemented && !implWeek) implWeek = snap.date
+        if (implWeek && item.units_sold) soldSinceImpl += item.units_sold
+        return { date: snap.date, ...item }
+      })
+      return { ...r, weeks, implWeek, soldSinceImpl }
+    })
+  }, [groupFilter, search, history.length])
+
+  const latestSnap    = history[history.length - 1]
+  const implCount     = latestSnap ? Object.values(latestSnap.items || {}).filter(i => i.implemented).length : 0
+  const totalTracked  = latestSnap ? Object.keys(latestSnap.items || {}).length : 0
+  const totalSold     = trackerRows.reduce((s, r) => s + r.soldSinceImpl, 0)
+
+  if (history.length === 0) {
+    return (
+      <div className="tracker-empty">
+        <h2>No weekly snapshots yet</h2>
+        <p>
+          Every Thursday after exporting the new stocklist CSV, run:
+        </p>
+        <pre className="tracker-code">python scripts/analyze.py --pdf Sales.pdf --csv NewStocklist.csv</pre>
+        <p>
+          The script appends a snapshot to <code>data/history.json</code> — tracking
+          which promos have been price-matched on the shelf and how many units
+          have sold since implementation. Snapshots appear here and accumulate week-over-week.
+        </p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="tracker-wrap">
+      {/* ── Summary stats ── */}
+      <div className="stats-strip">
+        <div className="stat">
+          <div className="stat-label">Weeks tracked</div>
+          <div className="stat-value">{history.length}</div>
+          <div className="stat-detail">since {history[0].date}</div>
+        </div>
+        <div className="stat">
+          <div className="stat-label">Promos implemented</div>
+          <div className="stat-value good">{implCount}</div>
+          <div className="stat-detail">of {totalTracked} items this week</div>
+        </div>
+        <div className="stat">
+          <div className="stat-label">Not yet actioned</div>
+          <div className="stat-value warn">{totalTracked - implCount}</div>
+          <div className="stat-detail">still at old shelf price</div>
+        </div>
+        <div className="stat">
+          <div className="stat-label">Units sold since tracking</div>
+          <div className="stat-value">{totalSold}</div>
+          <div className="stat-detail">across all tracked items</div>
+        </div>
+      </div>
+
+      {/* ── Toolbar ── */}
+      <div className="toolbar">
+        <div className="toolbar-group">
+          <span className="toolbar-label">Search</span>
+          <input className="search-input" type="text" placeholder="item name…" value={search} onChange={e => setSearch(e.target.value)} />
+        </div>
+        <div className="toolbar-group">
+          <span className="toolbar-label">Group</span>
+          {[['all','All'],['beer_cider_rtd','Beer/Cider/RTD'],['wine','Wine'],['spirits','Spirits']].map(([k,lbl]) => (
+            <span key={k} className={`chip${groupFilter === k ? ' active' : ''}`} onClick={() => setGroupFilter(k)}>{lbl}</span>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Legend ── */}
+      <div className="tracker-legend">
+        <span className="tl-item tl-impl">✓ Price matched</span>
+        <span className="tl-item tl-pending">○ Not yet actioned</span>
+        <span className="tl-item tl-sold">↓ Units sold that week</span>
+      </div>
+
+      {/* ── Table ── */}
+      <div className="table-wrap">
+        <div className="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th className="tracker-name-th">Item</th>
+                <th>Cat</th>
+                <th>Promo $</th>
+                {history.map(snap => (
+                  <th key={snap.date} className="week-th">
+                    {snap.date}<br/>
+                    <span className="week-th-sub">stock · sold</span>
+                  </th>
+                ))}
+                <th>Sold since impl</th>
+              </tr>
+            </thead>
+            <tbody>
+              {trackerRows.map(r => (
+                <tr key={r.name} className={r.implWeek ? 'tracker-row-impl' : ''}>
+                  <td className="name">{r.name}</td>
+                  <td className="cat">{r.category}</td>
+                  <td className="num price-promo">{fmt.money(r.promo_single_price)}</td>
+                  {r.weeks.map((w, i) => {
+                    if (w.missing) return <td key={i} className="tracker-na">—</td>
+                    return (
+                      <td key={i} className={`tracker-cell${w.implemented ? ' impl' : ' pending'}`}>
+                        <div className="tracker-stock">{w.stock}</div>
+                        {w.units_sold != null && w.units_sold > 0 &&
+                          <div className="tracker-sold">↓{w.units_sold}</div>}
+                        <div className={`tracker-status-dot ${w.implemented ? 'dot-impl' : 'dot-pending'}`} />
+                      </td>
+                    )
+                  })}
+                  <td className={`num ${r.soldSinceImpl > 0 ? 'tracker-sold-total' : 'price-na'}`}>
+                    {r.soldSinceImpl > 0 ? r.soldSinceImpl : '—'}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -470,7 +807,11 @@ function SpecialsTab() {
 // ── Root ─────────────────────────────────────────────────────────────────────
 
 export default function App() {
-  const [tab, setTab] = useState('movers')
+  const [tab,        setTab]        = useState('movers')
+  const [marginTier, setMarginTier] = useState(0)   // 0 = Floor A, 1 = Floor B
+
+  const activeMargins = MARGIN_TIERS[marginTier]
+
   return (
     <>
       <header className="masthead">
@@ -478,35 +819,51 @@ export default function App() {
         <div className="masthead-meta">
           <div className="meta-row"><span>{data.meta.period}</span></div>
           <div className="meta-row">
-            <strong>{data.rows.length}</strong>&nbsp;flagged ·&nbsp;
+            <strong>{ACTIVE_ROWS.length}</strong>&nbsp;active ·&nbsp;
             <strong>{data.specials.length}</strong>&nbsp;specials
           </div>
         </div>
       </header>
 
       <nav className="tabs">
-        <button className={`tab-button${tab === 'movers' ? ' active' : ''}`} onClick={() => setTab('movers')}>
-          Slow Movers <span className="count">{data.rows.length}</span>
+        <button className={`tab-button${tab === 'movers'   ? ' active' : ''}`} onClick={() => setTab('movers')}>
+          Slow Movers <span className="count">{ACTIVE_ROWS.length}</span>
+        </button>
+        <button className={`tab-button${tab === 'promos'   ? ' active' : ''}`} onClick={() => setTab('promos')}>
+          Top Picks
+        </button>
+        <button className={`tab-button${tab === 'tracker'  ? ' active' : ''}`} onClick={() => setTab('tracker')}>
+          Weekly Tracker {(data.history || []).length > 0 && <span className="count">{(data.history || []).length}w</span>}
         </button>
         <button className={`tab-button${tab === 'specials' ? ' active' : ''}`} onClick={() => setTab('specials')}>
           Specials <span className="count">{data.specials.length}</span>
         </button>
       </nav>
 
-      {tab === 'movers' ? <SlowMoversTab /> : <SpecialsTab />}
+      {tab === 'movers'   && <SlowMoversTab  activeMargins={activeMargins} marginTier={marginTier} setMarginTier={setMarginTier} />}
+      {tab === 'promos'   && <PromotionsTab  activeMargins={activeMargins} marginTier={marginTier} setMarginTier={setMarginTier} />}
+      {tab === 'tracker'  && <TrackerTab />}
+      {tab === 'specials' && <SpecialsTab />}
 
       <div className="rules-strip">
         <div className="rules-strip-item">
+          <span className="rules-strip-label">Floor {MARGIN_TIERS[marginTier].label} active</span>
+          <span className="rules-strip-value">{MARGIN_TIERS[marginTier].desc}</span>
+        </div>
+        <div className="rules-strip-item">
           <span className="rules-strip-label">Beer · Cider · RTD</span>
-          <span className="rules-strip-value">single <strong>35%</strong> · unit <strong>25%</strong></span>
+          <span className="rules-strip-value">
+            single <strong>{(activeMargins.beer_cider_rtd.single * 100).toFixed(0)}%</strong>
+            {' · '}unit <strong>{(activeMargins.beer_cider_rtd.unit * 100).toFixed(0)}%</strong>
+          </span>
         </div>
         <div className="rules-strip-item">
           <span className="rules-strip-label">Wine</span>
-          <span className="rules-strip-value">single &amp; unit <strong>30%</strong></span>
+          <span className="rules-strip-value">single &amp; unit <strong>{(activeMargins.wine.single * 100).toFixed(0)}%</strong></span>
         </div>
         <div className="rules-strip-item">
           <span className="rules-strip-label">Spirits</span>
-          <span className="rules-strip-value">single &amp; unit <strong>15%</strong></span>
+          <span className="rules-strip-value">single &amp; unit <strong>{(activeMargins.spirits.single * 100).toFixed(0)}%</strong></span>
         </div>
         <div className="rules-strip-item">
           <span className="rules-strip-label">Rounding</span>

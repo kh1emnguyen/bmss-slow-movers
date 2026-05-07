@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Email Draft — Hoa</title>
+  <style>
+    /* ── Preview wrapper ──────────────────────────────────────── */
+    body {
+      margin: 0;
+      padding: 32px 16px;
+      background: #f0f2f5;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    .email-wrap {
+      max-width: 640px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    }
+
+    /* ── Header band ──────────────────────────────────────────── */
+    .email-header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+      padding: 28px 36px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .header-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .header-text h1 {
+      margin: 0 0 3px;
+      color: #ffffff;
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+
+    .header-text p {
+      margin: 0;
+      color: rgba(255,255,255,0.55);
+      font-size: 12.5px;
+    }
+
+    /* ── Body ─────────────────────────────────────────────────── */
+    .email-body {
+      padding: 32px 36px 36px;
+      color: #1c1c1e;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .salutation {
+      font-size: 15.5px;
+      margin: 0 0 18px;
+    }
+
+    .intro-box {
+      background: #f7f8fc;
+      border-left: 3px solid #0f3460;
+      border-radius: 0 6px 6px 0;
+      padding: 13px 16px;
+      margin: 0 0 24px;
+      font-size: 13.5px;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    h2 {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #0f3460;
+      margin: 28px 0 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #e8eaf0;
+    }
+
+    p { margin: 0 0 14px; }
+
+    /* ── App list ─────────────────────────────────────────────── */
+    .app-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 14px;
+    }
+
+    .app-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 14px;
+      background: #f7f8fc;
+      border-radius: 7px;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .app-list li .app-num {
+      background: #0f3460;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .app-list li strong { color: #1a1a2e; }
+
+    /* ── Cloudflare callout ───────────────────────────────────── */
+    .cf-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 10px 0 14px;
+    }
+
+    .cf-card {
+      background: #f7f8fc;
+      border-radius: 8px;
+      padding: 14px 15px;
+      border: 1px solid #e4e6ef;
+    }
+
+    .cf-card .cf-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #0f3460;
+      margin-bottom: 5px;
+    }
+
+    .cf-card p {
+      font-size: 13.5px;
+      color: #444;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* ── Next steps ───────────────────────────────────────────── */
+    .steps-box {
+      background: #f0f4ff;
+      border: 1px solid #d0d9f0;
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin: 10px 0 14px;
+    }
+
+    .steps-box p {
+      font-size: 14px;
+      margin: 0 0 10px;
+      color: #333;
+    }
+
+    .steps-box p:last-child { margin-bottom: 0; }
+
+    .step-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .step-badge {
+      background: #0f3460;
+      color: #fff;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      letter-spacing: 0.3px;
+    }
+
+    /* ── Sign-off ─────────────────────────────────────────────── */
+    .signoff {
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid #eaecf0;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .signoff .name { font-weight: 600; color: #1a1a2e; }
+
+    .max-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #1a1a2e;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px 3px 7px;
+      border-radius: 20px;
+      margin-top: 6px;
+      letter-spacing: 0.3px;
+    }
+
+    .max-badge .dot {
+      width: 6px;
+      height: 6px;
+      background: #4ade80;
+      border-radius: 50%;
+    }
+
+    /* ── Meta bar ─────────────────────────────────────────────── */
+    .meta-bar {
+      background: #f7f8fc;
+      border-top: 1px solid #e8eaf0;
+      padding: 12px 36px;
+      font-size: 11.5px;
+      color: #999;
+    }
+
+    .meta-bar span { margin-right: 18px; }
+  </style>
+</head>
+<body>
+
+<div class="email-wrap">
+
+  <!-- Header -->
+  <div class="email-header">
+    <div class="header-icon">🏪</div>
+    <div class="header-text">
+      <h1>BMSS Tech Briefing</h1>
+      <p>Sent by Max · Khiem's AI agent · while Khiem is with the electrician</p>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="email-body">
+
+    <p class="salutation">Hi Hoa,</p>
+
+    <div class="intro-box">
+      Quick note before we get into it: my name is <strong>Max</strong>, Khiem's AI agent. He's currently dealing with an electrician issue at the venue and asked me to send this across while he's occupied — so yes, you're getting a briefing from an AI. He'll be back online soon and can follow up on anything you'd like to discuss.
+    </div>
+
+    <p>Here's a clear picture of where the BMSS digital tools are at, what we think needs to happen next, and what (if anything) we'd need from you.</p>
+
+    <h2>What's been built</h2>
+
+    <p>We now have three apps running:</p>
+
+    <ul class="app-list">
+      <li>
+        <span class="app-num">1</span>
+        <div><strong>Slow Movers Console</strong> — identifies stock that isn't selling, calculates promo prices, and tracks week-on-week whether promos are actually moving units. Updated every Thursday.</div>
+      </li>
+      <li>
+        <span class="app-num">2</span>
+        <div><strong>Swing Trade Dashboard</strong> — compares our BMSS supplier pricelist (ALM 4420) against Duncans (ALM 2088) across 4,300+ SKUs to identify trade opportunities.</div>
+      </li>
+      <li>
+        <span class="app-num">3</span>
+        <div><strong>Parallel Beer Import</strong> — tracks parallel import opportunities across the Australian beer market.</div>
+      </li>
+    </ul>
+
+    <p>All three are currently hosted publicly on GitHub Pages. That means the code — including pricing and cost data — is visible to anyone who knows where to look. We want to fix that.</p>
+
+    <h2>Do we need GitHub Pro?</h2>
+
+    <p>Short answer: <strong>no.</strong> GitHub's free plan already allows unlimited private repositories. The only limitation is that GitHub Pages (our current hosting) won't serve private repos for free. Rather than pay for GitHub Pro (~$4/month), the better move is to shift hosting to <strong>Cloudflare Pages</strong>, which is free and works seamlessly with private repos.</p>
+
+    <h2>The Cloudflare solution</h2>
+
+    <div class="cf-grid">
+      <div class="cf-card">
+        <div class="cf-label">Cloudflare Pages</div>
+        <p>Free hosting that connects directly to our (now private) GitHub repos and auto-deploys whenever Khiem pushes new code. Functionally identical to GitHub Pages, no cost.</p>
+      </div>
+      <div class="cf-card">
+        <div class="cf-label">Cloudflare Access</div>
+        <p>A Google login wall in front of each app. Only approved email addresses can get through. No passwords to manage. Free for up to 50 users.</p>
+      </div>
+    </div>
+
+    <p>The result: our data is private, apps auto-update, and only people we approve can log in — all at $0/month.</p>
+
+    <h2>Hub at nawarriesliquor.com.au</h2>
+
+    <p>Rather than sharing separate links, the plan is a single home page at <strong>nawarriesliquor.com.au</strong> — one login, one place, with tiles leading to each tool. As more apps are added they just appear as new tiles. The domain needs to point to Cloudflare, which means updating two nameserver entries inside the Google Domains / Squarespace registrar — a copy-paste job, nothing more.</p>
+
+    <h2>Next steps — with your go-ahead</h2>
+
+    <div class="steps-box">
+      <p>There's nothing complex required from you. With your approval, Khiem (or I, depending on access) will take care of the following:</p>
+      <p class="step-row">
+        <span class="step-badge">STEP 1</span>
+        <span><strong>Set up a Cloudflare account</strong> and add nawarriesliquor.com.au as a site — this triggers the step-by-step nameserver update inside Google Domains. Once pointed over, Cloudflare handles everything from there.</span>
+      </p>
+      <br/>
+      <p class="step-row">
+        <span class="step-badge">STEP 2</span>
+        <span><strong>Connect the GitHub repos to Cloudflare Pages</strong>, make them private, set up the Access login wall, and build the hub landing page. Khiem handles all of this — no action needed on your end for this part.</span>
+      </p>
+    </div>
+
+    <p>That's the full picture. Happy to answer anything that needs clarifying — Khiem will be back shortly if you'd prefer to speak with him directly.</p>
+
+    <div class="signoff">
+      <p>On behalf of Khiem,</p>
+      <p class="name">Max</p>
+      <span class="max-badge"><span class="dot"></span>AI Agent · Dispatched by Khiem Nguyen</span>
+    </div>
+
+  </div>
+
+  <!-- Meta bar -->
+  <div class="meta-bar">
+    <span>To: sutucha2004@gmail.com</span>
+    <span>Re: BMSS · nawarriesliquor.com.au</span>
+    <span>7 May 2026</span>
+  </div>
+
+</div>
+
+</body>
+</html>

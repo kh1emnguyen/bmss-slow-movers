@@ -11,6 +11,8 @@ BMSS slow-mover analysis — updated rounding rules (May 2026)
     * Beer/Cider/RTD  →  round UP to nearest $X.X9
     * Wine / Spirits  →  round UP to nearest $X.49 or $X.99
 - Items with cost < $0.50 are flagged as cost_missing (no promo generated)
+- Wine/spirits promos are capped at 20% off the shelf price (shelf × 0.80)
+  so suspect-cost items never show absurdly low promos
 - Picks "specials" with reason tags for the React dashboard
 - Writes data.js (src/data.js) for the Vite/React app
 
@@ -26,18 +28,83 @@ import json
 import math
 import re
 from collections import defaultdict
+from datetime import date as _date
 from pathlib import Path
 
 import pdfplumber
 
-# ── Defaults (for Claude/StackBlitz workflow) ─────────────────────────────────
-UPLOADS    = Path("/mnt/user-data/uploads")
-PDF_PATH   = UPLOADS / "Sales_Jan-Apr_26.pdf"
-CSV_PATH   = UPLOADS / "Apr26_Stocklist.csv"
-OUTPUT_JS  = Path("src/data.js")
+# ── Defaults ─────────────────────────────────────────────────────────────────
+UPLOADS      = Path("/mnt/user-data/uploads")
+PDF_PATH     = UPLOADS / "Sales_Jan-Apr_26.pdf"
+CSV_PATH     = UPLOADS / "Apr26_Stocklist.csv"
+OUTPUT_JS    = Path("src/data.js")
+HISTORY_FILE = Path("data/history.json")
 
 # Items with cost below this threshold are treated as missing data
 COST_MISSING_THRESHOLD = 0.50
+
+# ── Weekly history tracking ───────────────────────────────────────────────────
+
+PRICE_IMPL_TOLERANCE = 0.51  # within $0.51 counts as "price matched" (catches rounding)
+
+
+def is_implemented(current_price, promo_price):
+    """Return True if the shelf price is within tolerance of the recommended promo."""
+    if current_price is None or promo_price is None:
+        return False
+    return abs(current_price - promo_price) <= PRICE_IMPL_TOLERANCE
+
+
+def load_history(path):
+    p = Path(path)
+    if p.exists():
+        return json.loads(p.read_text(encoding="utf-8"))
+    return {"snapshots": []}
+
+
+def save_history(history, path):
+    p = Path(path)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(json.dumps(history, indent=2, ensure_ascii=False), encoding="utf-8")
+
+
+def build_snapshot(rows, date_str):
+    """
+    Snapshot of every non-archaic slow mover for one Thursday run.
+    Captures stock level, current shelf price, recommended promo, and whether
+    the price has been actioned on the shelf (implemented).
+    """
+    items = {}
+    for r in rows:
+        if r["never_sold"]:
+            continue  # archaic items excluded from tracking
+        items[r["name"]] = {
+            "stock":       r["total_on_hand"],
+            "price":       r["current_single_price"],
+            "promo":       r["promo_single_price"],
+            "implemented": is_implemented(r["current_single_price"], r["promo_single_price"]),
+            "units_sold":  None,  # filled by annotate_units_sold
+        }
+    return {"date": date_str, "items": items}
+
+
+def annotate_units_sold(snapshots):
+    """
+    Fill units_sold for each item by comparing stock with the previous snapshot.
+    units_sold = max(0, prev_stock − curr_stock).
+    A positive result means stock dropped (sold). Deliveries (stock going up)
+    are treated as 0 sold for that week — conservative but simple.
+    """
+    for i in range(1, len(snapshots)):
+        prev_items = snapshots[i - 1]["items"]
+        curr_items = snapshots[i]["items"]
+        for name, item in curr_items.items():
+            prev = prev_items.get(name)
+            if prev is not None:
+                item["units_sold"] = max(0, prev["stock"] - item["stock"])
+            else:
+                item["units_sold"] = None  # item is new to the list this week
+    return snapshots
 
 
 # ── Sales PDF parsing ─────────────────────────────────────────────────────────
@@ -160,10 +227,38 @@ def round_up_x9(raw):
     return round(cents / 100, 2)
 
 
+MAX_SHELF_DISCOUNT = 0.20  # wine/spirits: promo never more than 20% off shelf
+
+
+def round_nearest_49_or_99(raw):
+    """Round to *nearest* $X.49 or $X.99 (used for the shelf cap ceiling)."""
+    if raw is None or raw <= 0:
+        return None
+    cents = raw * 100
+    lo = math.floor((cents + 1) / 50) * 50 - 1
+    hi = math.ceil((cents + 1) / 50) * 50 - 1
+    return round((lo if abs(lo - cents) <= abs(hi - cents) else hi) / 100, 2)
+
+
+def apply_cap(floor_price, shelf_price, group):
+    """
+    For wine/spirits: if the margin floor falls below (shelf × 0.80),
+    raise the promo to the nearest .49/.99 at or above that 20%-off price.
+    Beer/cider/RTD is uncapped.
+    """
+    if floor_price and shelf_price and group != "beer_cider_rtd":
+        min_promo = shelf_price * (1 - MAX_SHELF_DISCOUNT)
+        if floor_price < min_promo:
+            return round_nearest_49_or_99(min_promo)
+    return floor_price
+
+
 def promo_price(cost_per_unit, margin, group):
     """
     cost / (1 − margin), rounded up to the group-appropriate price point.
     Returns None if cost is missing/suspect (< COST_MISSING_THRESHOLD).
+    Shelf cap is NOT applied here — caller must call apply_cap() with the
+    item's current shelf price after calling this function.
     """
     if cost_per_unit is None or cost_per_unit < COST_MISSING_THRESHOLD:
         return None
@@ -229,8 +324,8 @@ def build_dataset(pdf_path, csv_path):
             continue
 
         single_margin, unit_margin = MARGINS[group]
-        p_single = promo_price(cost, single_margin, group)
-        p_unit   = promo_price(cost * unit_size, unit_margin, group) if unit_size else None
+        p_single = apply_cap(promo_price(cost, single_margin, group), csp, group)
+        p_unit   = apply_cap(promo_price(cost * unit_size, unit_margin, group), cup, group) if unit_size else None
 
         total_on_hand = si["cases_on_hand"] * si["case_quantity"] + si["items_on_hand"]
 
@@ -350,15 +445,36 @@ def fmt_m(n):
 
 def main():
     parser = argparse.ArgumentParser(description="BMSS slow-mover analysis")
-    parser.add_argument("--pdf", default=str(PDF_PATH), help="Path to sales PDF")
-    parser.add_argument("--csv", default=str(CSV_PATH), help="Path to stocklist CSV")
-    parser.add_argument("--out", default=str(OUTPUT_JS), help="Output data.js path")
-    parser.add_argument("--period", default="01/01/2026 – 25/04/2026", help="Period label")
+    parser.add_argument("--pdf",     default=str(PDF_PATH),     help="Path to sales PDF")
+    parser.add_argument("--csv",     default=str(CSV_PATH),     help="Path to stocklist CSV")
+    parser.add_argument("--out",     default=str(OUTPUT_JS),    help="Output data.js path")
+    parser.add_argument("--history", default=str(HISTORY_FILE), help="Path to history.json")
+    parser.add_argument("--period",  default="01/01/2026 – 25/04/2026", help="Period label")
+    parser.add_argument("--date",    default=None,
+                        help="Snapshot date YYYY-MM-DD (default: today). "
+                             "Used to tag the weekly snapshot in history.json.")
     args = parser.parse_args()
 
     rows, matched, unmatched = build_dataset(args.pdf, args.csv)
     specials = pick_specials(rows)
 
+    # ── History snapshot ──────────────────────────────────────────────────────
+    snapshot_date = args.date or str(_date.today())
+    history       = load_history(args.history)
+    new_snap      = build_snapshot(rows, snapshot_date)
+
+    if any(s["date"] == snapshot_date for s in history["snapshots"]):
+        print(f"  History: snapshot for {snapshot_date} already exists — skipping append.")
+        print(f"           Pass --date YYYY-MM-DD with a different date to force a new entry.")
+    else:
+        history["snapshots"].append(new_snap)
+        history["snapshots"] = annotate_units_sold(history["snapshots"])
+        save_history(history, args.history)
+        impl_ct = sum(1 for v in new_snap["items"].values() if v["implemented"])
+        print(f"  History: snapshot {snapshot_date} appended "
+              f"({len(new_snap['items'])} items, {impl_ct} implemented)")
+
+    # ── Write data.js ─────────────────────────────────────────────────────────
     out = {
         "meta": {
             "period": args.period,
@@ -373,8 +489,9 @@ def main():
                 "rounding":       "Beer/RTD → $X.X9 · Wine/Spirits → $X.49 or $X.99",
             },
         },
-        "rows": rows,
+        "rows":     rows,
         "specials": specials,
+        "history":  history["snapshots"],
     }
 
     out_path = Path(args.out)
@@ -389,6 +506,7 @@ def main():
     print(f"  Cost missing   : {sum(1 for r in rows if r['cost_missing'])}")
     print(f"  Specials       : {len(specials)}")
     print(f"  Stock at cost  : ${sum(r['stock_value_at_cost'] for r in rows):,.2f}")
+    print(f"  Snapshots so far: {len(history['snapshots'])}")
 
 
 if __name__ == "__main__":
