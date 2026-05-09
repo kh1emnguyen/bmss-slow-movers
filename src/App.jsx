@@ -32,6 +32,36 @@ const MARGIN_TIERS = [
 // Permanently exclude items with zero sales (archaic — not sold since May 2025)
 const ACTIVE_ROWS = data.rows.filter(r => !r.never_sold)
 
+// ── Weekly Tracker — curated item list (Brian-actioned promos only) ──────────
+const TRACKER_NAMES = [
+  'Penfolds B8 Cab Shiraz 750ml',
+  'Penfolds B2 2012 Shiraz Mourvedre 750ml',
+  'Captain Morgan Pina Colada 440ml',
+  'WIRRA WIRRA MVCG CAB SAU 750ML',
+  'R/MONDAVI BOURB CAB SAUV 750ML',
+  'Kilarni Adelaide Hills Pinot Noir 750ml',
+  'KILARNI Cab Sauv 750ML',
+  'Kilarni Estate GSM 750ml',
+  'Kilarni Estate Shiraz 750ml',
+  'Kilarni Pinot Noir Rose 750ml',
+  'Kilarni Sauv Blanc 750ml',
+  'Bumbu Rum 700ml',
+  'Hakutsuru Junmaiginjo Blue 14% Sake 720ml',
+  'Wild Turkey 81 Proof Bourbon 1L',
+  'Proper No 12 Apple Irish Whiskey 700ml',
+  'Proper No12 Irish Whiskey 700ml',
+  'Beenleigh Hard Orange 375ml',
+  'Beenleigh Hard Pineapple 375ml',
+  'Ruski Tropical 8% Bottles 275ML',
+  'Suntory Whisky Toki 700ml',
+  'Jameson Black Barrel 700ml',
+]
+
+// Manual promo price overrides for items outside the slow-mover margin analysis
+const TRACKER_MANUAL_PROMOS = {
+  'Suntory Whisky Toki 700ml': 75.00,
+}
+
 const fmt = {
   money: (n) =>
     n === null || n === undefined
@@ -540,36 +570,43 @@ function PromotionsTab({ activeMargins, marginTier, setMarginTier }) {
 // ── Weekly Tracker tab ────────────────────────────────────────────────────────
 
 function TrackerTab() {
-  const [groupFilter, setGroupFilter] = useState('all')
-  const [search,      setSearch]      = useState('')
+  const [search, setSearch] = useState('')
   const history = data.history || []
 
-  // Per-item tracker data derived from history snapshots
+  // Per-item tracker data — curated to TRACKER_NAMES only
   const trackerRows = useMemo(() => {
-    const rows = ACTIVE_ROWS.filter(r => {
-      if (groupFilter !== 'all' && r.group !== groupFilter) return false
-      if (search.trim() && !r.name.toLowerCase().includes(search.toLowerCase())) return false
-      return true
-    })
+    const rowLookup = Object.fromEntries(data.rows.map(r => [r.name, r]))
 
-    return rows.map(r => {
-      let implWeek = null
-      let soldSinceImpl = 0
-      const weeks = history.map(snap => {
-        const item = snap.items?.[r.name]
-        if (!item) return { date: snap.date, missing: true }
-        if (item.implemented && !implWeek) implWeek = snap.date
-        if (implWeek && item.units_sold) soldSinceImpl += item.units_sold
-        return { date: snap.date, ...item }
+    return TRACKER_NAMES
+      .filter(name => !search.trim() || name.toLowerCase().includes(search.toLowerCase()))
+      .map(name => {
+        const dataRow    = rowLookup[name]
+        const manualPromo = TRACKER_MANUAL_PROMOS[name] ?? null
+        const promoPrice  = manualPromo ?? dataRow?.promo_single_price ?? null
+        const category    = dataRow?.category ?? '—'
+
+        let implWeek = null
+        let soldSinceImpl = 0
+
+        const weeks = history.map(snap => {
+          const item = snap.items?.[name]
+          if (!item) return { date: snap.date, missing: true }
+          // Recompute implemented if we have a manual promo override
+          const implemented = promoPrice != null
+            ? Math.abs((item.price ?? 9999) - promoPrice) <= 0.51
+            : item.implemented
+          if (implemented && !implWeek) implWeek = snap.date
+          if (implWeek && item.units_sold) soldSinceImpl += item.units_sold
+          return { date: snap.date, ...item, implemented }
+        })
+
+        return { name, category, promo_single_price: promoPrice, weeks, implWeek, soldSinceImpl }
       })
-      return { ...r, weeks, implWeek, soldSinceImpl }
-    })
-  }, [groupFilter, search, history.length])
+  }, [search, history.length])
 
-  const latestSnap    = history[history.length - 1]
-  const implCount     = latestSnap ? Object.values(latestSnap.items || {}).filter(i => i.implemented).length : 0
-  const totalTracked  = latestSnap ? Object.keys(latestSnap.items || {}).length : 0
-  const totalSold     = trackerRows.reduce((s, r) => s + r.soldSinceImpl, 0)
+  const implCount    = trackerRows.filter(r => r.implWeek).length
+  const totalTracked = trackerRows.length
+  const totalSold    = trackerRows.reduce((s, r) => s + r.soldSinceImpl, 0)
 
   if (history.length === 0) {
     return (
@@ -621,10 +658,9 @@ function TrackerTab() {
           <input className="search-input" type="text" placeholder="item name…" value={search} onChange={e => setSearch(e.target.value)} />
         </div>
         <div className="toolbar-group">
-          <span className="toolbar-label">Group</span>
-          {[['all','All'],['beer_cider_rtd','Beer/Cider/RTD'],['wine','Wine'],['spirits','Spirits']].map(([k,lbl]) => (
-            <span key={k} className={`chip${groupFilter === k ? ' active' : ''}`} onClick={() => setGroupFilter(k)}>{lbl}</span>
-          ))}
+          <span className="toolbar-label" style={{color:'var(--muted)',fontSize:'12px'}}>
+            {totalTracked} items · Brian-actioned promos
+          </span>
         </div>
       </div>
 
